@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--菜单，左侧图片+文字，右侧开关按钮-->
+    <declare-styleable name="CheckButtonView">
+        <attr name="is_show_left_img" format="boolean"/>
+        <attr name="left_txt_name" format="string"/>
+        <attr name="left_img_resource" format="reference"/>
+        <!--右侧显示图片-->
+        <attr name="right_image" format="integer"/>
+        <attr name="right_back_img" format="boolean"/>
+    </declare-styleable>
+
+    <!--进度-->
+    <declare-styleable name="CusScheduleView">
+        <attr name="cus_all_schedule_color" format="color"/>
+        <attr name="cus_curr_schedule_color" format="color"/>
+        <!--文字显示的颜色-->
+        <attr name="cus_txt_color" format="color"/>
+        <!--是否显示文字-->
+        <attr name="cus_is_show_txt" format="boolean"/>
+    </declare-styleable>
+</resources>

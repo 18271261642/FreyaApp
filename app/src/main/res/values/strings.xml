@@ -1,0 +1,177 @@
+<resources>
+    <string name="app_name">Freya</string>
+
+    <string name="string_evening_good">Good evening</string>
+    <string name="string_afternoon_good">Good afternoon</string>
+    <string name="string_morning_good">Good morning</string>
+    <string name="string_has_last_version">It is already the latest version!</string>
+    <string name="string_speed_adjust">Adjusting speed</string>
+    <string name="string_preview">Preview</string>
+    <string name="string_auto_lock">Automatic locking</string>
+    <string name="string_minute_time">minute</string>
+    <string name="string_second_time">second</string>
+    <string name="string_delete_txt">Delete</string>
+    <string name="string_alarm_edit">Alarm Editing</string>
+    <string name="string_save">Save</string>
+    <string name="string_please_input_title">Please enter title!</string>
+    <string name="string_has_new_ota">There is a new firmware, upgrade or not?</string>
+    <string name="string_downloading">Downloading</string>
+    <string name="string_start_download">Start downloading file</string>
+    <string name="string_upgrade_conning">connecting..</string>
+    <string name="string_upgrade_restart">Upgrade completed,restarting..</string>
+
+    <string name="string_upgrade_failed">Upgrade failed, please upgrade again</string>
+    <string name="string_upgrade_success">Upgrade successful</string>
+    <string name="string_upgrading">Upgrading</string>
+    <string name="string_ota_state">State:</string>
+    <string name="string_firmware_upgrade">Firmware Upgrade</string>
+    <string name="string_last_version">Last Version: %s</string>
+    <string name="string_current_version">Current Version: %s</string>
+    <string name="string_edit">Edit</string>
+    <string name="string_playback_speed">Playback speed</string>
+    <string name="string_fast">Fast</string>
+    <string name="string_slowest">Slowest</string>
+    <string name="string_custom_speed">Custom speed</string>
+    <string name="string_clock_style">时钟样式</string>
+    <string name="string_alarm_clock">闹钟</string>
+    <string name="string_setting_screen_style">屏保样式</string>
+    <string name="string_setting_note">备忘录</string>
+
+    <string name="string_no_device_added">No device connection</string>
+    <string name="string_add_device">Add device</string>
+    <string name="string_invalid_value">Invalid value passed in!</string>
+    <string name="string_upload_animat">Upload Animation</string>
+    <string name="string_gif_tips_desc">When uploading static images and GIFs,please ensure that the dimension is larger than 320px X 172px.There are no specific restrictions on the image size.</string>
+    <string name="string_gif_tips">Tip</string>
+    <string name="string_click_bind">click bind</string>
+    <string name="string_word">size</string>
+    <string name="string_firmware_version">SCREEN FIRMWARE VERSION: %s</string>
+    <string name="string_app_version">APP VERSION: %s</string>
+
+    <string name="string_gig_small">The GIF is too small, please choose a normal gif!</string>
+    <string name="string_is_unbind">Do you want to unbind?</string>
+
+    <string name="string_keyboard_max_length">The keyboard can display up to 40 characters</string>
+    <string name="string_selector">Select</string>
+    <string name="string_note_detail">Note Details</string>
+    <string name="string_set_note_to_device">Sync to keyboard</string>
+
+
+    <string name="string_is_delete_note">Do you want to delete this note?</string>
+    <string name="string_add">Add</string>
+    <string name="string_error_exit">Exit Exception!</string>
+    <string name="string_update_failed">Update Failed!</string>
+    <string name="string_update_success">Update Completed!</string>
+    <string name="string_device_busy">The device is processing other data, please wait!</string>
+
+
+    <string name="string_conn_success">Connected!</string>
+    <string name="string_conn_disconn">Disconnected!</string>
+
+    <string name="string_retry_conn">Reconnect</string>
+    <string name="string_sync_ing">Synchronizing..</string>
+    <string name="string_device_not_connect">Device is not connected!</string>
+    <string name="string_name">Name</string>
+    <string name="string_unbind">Unbind</string>
+    <string name="string_connected">Connected</string>
+    <string name="string_connecting">Connecting..</string>
+
+
+    <string name="string_custom">Customize</string>
+    <string name="string_select_pick">Select Image</string>
+    <string name="string_take_photo">Camera</string>
+    <string name="string_album">Album</string>
+
+    <string name="string_note">Notes</string>
+    <string name="string_search_note">search notes</string>
+    <string name="string_empty_note">no notes</string>
+    <string name="string_no_conn_device">no connectable device</string>
+    <string name="string_retry">Retry</string>
+
+
+    <string name="string_start_write">start writing</string>
+    <string name="string_title">Title</string>
+    <string name="string_default_anim">Default Animation</string>
+    <string name="string_selector_cus">Customize</string>
+
+    <string name="string_notebook">Notebook</string>
+    <string name="string_selector_device">Choose device</string>
+    <string name="string_upload_anim">Upload animation</string>
+
+    <!-- 通用的 -->
+    <string name="common_loading">Loading&#8230;</string>
+
+    <string name="common_unknown_error">Unknown Error</string>
+
+
+    <string name="string_notify_desc">This is to receive notification reminders. For the app to function properly you need to allow us to have notification access for your device. Please allow Pocket Wuque Notification access in your settings. After this option has been selected you can use the message push notifications feature. </string>
+
+    <string name="comm_prompt">Remind</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_exit">Exit</string>
+
+    <!-- 拍照和拍摄 -->
+    <string name="video_select_title">Video Selection</string>
+    <string name="video_select_all">All videos</string>
+
+    <string name="video_select_total">total %d </string>
+
+    <string name="video_select_max_hint">Only %d videos can be selected at most at this time</string>
+
+    <string name="video_select_error">Cannot be selected, the video has been deleted</string>
+    <string name="camera_launch_fail">Can\'t start camera</string>
+    <string name="camera_image_error">Destination address error</string>
+    <!-- 图片选择 -->
+    <string name="image_select_title">Image Selection</string>
+    <string name="image_select_all">All Images</string>
+
+    <string name="image_select_total">total %d</string>
+
+    <string name="image_select_max_hint">Only %d images can be selected at most at this time</string>
+
+    <string name="image_select_error">Cannot be selected, the image has been deleted</string>
+
+    <string name="status_layout_no_data">empty</string>
+    <string name="status_layout_error_request">Request error, please try again</string>
+    <string name="status_layout_error_network">Network error, please try again</string>
+    <string name="status_layout_retry">Retry</string>
+
+    <string name="string_today">Today</string>
+    <string name="string_yesterday">Yesterday</string>
+    <string name="string_before_dawn_">Midnight</string>
+    <string name="string_morning">Morning</string>
+    <string name="string_noon">Noon</string>
+    <string name="string_afternoon">Afternoon</string>
+    <string name="string_night">Night</string>
+    <string name="string_double_click_exit">Press again to exit the program!</string>
+
+
+    <string name="user_agreement_tips">Service Agreement</string>//User Agreement
+    <string name="privacy_agreement_tips">Privacy Policy</string>//Privacy Policy
+    <string name="privacy_agreement_2">By pressing the "Confirm" Button, you agree to the updated terms and conditions outlined in the Service Agreement and Privacy Policy.</string>
+
+    <string name="string_confirm">Confirm</string>
+    <string name="string_cancel">Cancel</string>
+    <string name="string_last_txt">Latest</string>
+    <string name="string_and"> and </string>
+
+    <string name="http_loading">Loading&#8230;</string>
+
+    <string name="http_unknown_error">request failed,unknown error</string>
+    <string name="http_token_error">login failed,please try again</string>
+    <string name="http_data_explain_error">Data parsing exception,please wait</string>
+    <string name="http_server_out_time">timeout error ,please wait and try again</string>
+    <string name="http_network_error">request failed,check net</string>
+    <string name="http_response_error">response error,please wait and try again</string>
+    <string name="http_server_error">Connect server error</string>
+    <string name="http_request_cancel">request interrupt</string>
+
+    <string name="string_monday">mon</string>
+    <string name="string_tuesday">tues</string>
+    <string name="string_wednesday">wed</string>
+    <string name="string_thursday">thur</string>
+    <string name="string_friday">fri</string>
+    <string name="string_saturday">sat</string>
+    <string name="string_sunday">sun</string>
+</resources>

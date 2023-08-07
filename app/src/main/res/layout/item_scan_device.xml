@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hjq.shape.layout.ShapeConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dp_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:shape_solidColor="@color/white"
+    app:shape_solidPressedColor="#EBEBEB"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/itemScanName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="smart windows"
+        android:textColor="#ff333333"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/dp_5"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/itemScanMac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="smart windows"
+        android:textColor="#ff333333"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/itemScanName"
+        android:layout_margin="@dimen/dp_5"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+    <com.hjq.shape.view.ShapeTextView
+        android:id="@+id/itemScanStatusTv"
+        app:shape_solidColor="#E8E9ED"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_3"
+        app:shape_radius="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_click_bind"/>
+
+
+</com.hjq.shape.layout.ShapeConstraintLayout>

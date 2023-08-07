@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hjq.shape.layout.ShapeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:shape_startColor="#343348"
+    app:shape_endColor="#191C24"
+    app:shape_angle="270"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/deleteDialogTitleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="是否移除设备?"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_20"
+        android:layout_marginTop="@dimen/dp_30"
+        android:gravity="center"/>
+
+    <com.hjq.shape.view.ShapeTextView
+        android:id="@+id/deleteDeviceConfirmTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="是"
+        app:shape_solidColor="#F86849"
+        app:shape_solidPressedColor="#90F86849"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        app:shape_radius="@dimen/dp_25"
+        android:layout_margin="@dimen/dp_20"
+        android:textSize="@dimen/sp_20"/>
+
+    <com.hjq.shape.view.ShapeTextView
+        android:id="@+id/deleteDeviceCancelTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="否"
+        app:shape_solidColor="#292E3C"
+        app:shape_solidPressedColor="#90292E3C"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        app:shape_radius="@dimen/dp_25"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:textSize="@dimen/sp_20"/>
+</com.hjq.shape.layout.ShapeLinearLayout>

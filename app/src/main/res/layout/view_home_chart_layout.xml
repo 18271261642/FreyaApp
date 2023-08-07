@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
+        <com.bonlala.widget.layout.RatioFrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/dp_5"
+            android:layout_height="match_parent"
+            app:sizeRatio="1.1">
+
+            <com.hjq.shape.layout.ShapeConstraintLayout
+                android:layout_width="match_parent"
+                app:shape_startColor="#FF343348"
+                app:shape_endColor="#FF262D38"
+                app:shape_angle="134"
+                app:shape_radius="@dimen/dp_15"
+                android:padding="@dimen/dp_10"
+                android:layout_height="match_parent">
+
+
+                <com.bonlala.widget.view.CircleProgress
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:bgArcColor="#33F75A37"
+                    app:bgArcWidth="15dp"
+                    app:unit="KPM"
+                    app:valueSize="35sp"
+
+                    app:unitSize="@dimen/sp_15"
+                    app:valueColor="@color/white"
+                    app:unitColor="@color/white"
+                    android:layout_gravity="center" />
+
+
+                <com.hjq.shape.layout.ShapeLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:shape_startColor="#90343348"
+                    app:shape_angle="134"
+                    app:shape_endColor="#90262D38">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#DDDDDD"
+                        android:text="功能开发中，敬请期待~"/>
+
+                </com.hjq.shape.layout.ShapeLinearLayout>
+
+
+            </com.hjq.shape.layout.ShapeConstraintLayout>
+
+        </com.bonlala.widget.layout.RatioFrameLayout>
+
+        <com.bonlala.widget.layout.RatioFrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/dp_5"
+            android:layout_height="match_parent"
+            app:sizeRatio="1.1">
+
+            <com.hjq.shape.layout.ShapeConstraintLayout
+                android:layout_width="match_parent"
+                app:shape_startColor="#FF343348"
+                app:shape_endColor="#FF262D38"
+                app:shape_angle="134"
+                android:padding="@dimen/dp_10"
+                app:shape_radius="@dimen/dp_15"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.bonlala.widget.view.CircleProgress
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:bgArcColor="#33F75A37"
+                    app:bgArcWidth="15dp"
+                    app:unit="电池电量"
+                    app:valueSize="35sp"
+                    app:unitSize="@dimen/sp_15"
+                    app:valueColor="@color/white"
+                    app:unitColor="@color/white"
+                    android:layout_gravity="center" />
+
+
+
+            </com.hjq.shape.layout.ShapeConstraintLayout>
+        </com.bonlala.widget.layout.RatioFrameLayout>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+    <com.bonlala.widget.layout.RatioFrameLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/dp_5"
+        android:layout_height="match_parent"
+        app:sizeRatio="1.1">
+
+        <com.hjq.shape.layout.ShapeConstraintLayout
+            android:layout_width="match_parent"
+            app:shape_startColor="#FF343348"
+            app:shape_endColor="#FF262D38"
+            app:shape_angle="134"
+            app:shape_radius="@dimen/dp_15"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_cpu_temputerature"/>
+
+
+
+            <TextView
+                android:id="@+id/cpuTempTv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_24"
+                android:textColor="#02F7DF"
+                android:text="35"/>
+
+        </com.hjq.shape.layout.ShapeConstraintLayout>
+
+    </com.bonlala.widget.layout.RatioFrameLayout>
+
+
+    <com.bonlala.widget.layout.RatioFrameLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/dp_5"
+        android:layout_height="match_parent"
+        app:sizeRatio="1.1">
+
+        <com.hjq.shape.layout.ShapeConstraintLayout
+            android:layout_width="match_parent"
+            app:shape_startColor="#FF343348"
+            app:shape_endColor="#FF262D38"
+            app:shape_angle="134"
+            app:shape_radius="@dimen/dp_15"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_gpu_temperature"/>
+
+
+
+            <TextView
+                android:id="@+id/gpuTempTv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_24"
+                android:textColor="#02F7DF"
+                android:text="35"/>
+
+        </com.hjq.shape.layout.ShapeConstraintLayout>
+
+
+    </com.bonlala.widget.layout.RatioFrameLayout>
+
+    <com.bonlala.widget.layout.RatioFrameLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/dp_5"
+        android:layout_height="match_parent"
+        app:sizeRatio="1.1">
+
+        <com.hjq.shape.layout.ShapeConstraintLayout
+            android:layout_width="match_parent"
+            app:shape_startColor="#FF343348"
+            app:shape_endColor="#FF262D38"
+            app:shape_angle="134"
+            app:shape_radius="@dimen/dp_15"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_hd_temperature"/>
+
+
+
+            <TextView
+                android:id="@+id/hdTempTv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_24"
+                android:textColor="#02F7DF" />
+
+            <com.hjq.shape.layout.ShapeLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shape_startColor="#90343348"
+                app:shape_angle="134"
+                app:shape_radius="@dimen/dp_15"
+                app:shape_endColor="#90262D38">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#DDDDDD"
+                    android:text="敬请期待~"/>
+
+            </com.hjq.shape.layout.ShapeLinearLayout>
+
+        </com.hjq.shape.layout.ShapeConstraintLayout>
+
+    </com.bonlala.widget.layout.RatioFrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

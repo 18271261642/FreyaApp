@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#FF343348"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:leftIcon="@null"
+        app:title="@string/string_alarm_edit"
+        app:titleColor="@color/white"
+        app:titleSize="@dimen/sp_20"
+        app:lineVisible="false"
+        app:leftTitle="@string/string_save"
+        app:rightTitle="@string/string_album"
+        app:leftTitleColor="#FFFD5834"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_30"
+        android:orientation="horizontal">
+
+
+        <com.bonlala.widget.view.StringScrollPicker
+            android:id="@+id/alarmHourScrollPicker"
+            android:layout_width="@dimen/dp_100"
+            app:spv_max_text_size="@dimen/sp_36"
+            app:spv_start_color="@color/white"
+            app:spv_end_color="@color/white"
+            app:spv_visible_item_count="5"
+            app:spv_min_text_size="@dimen/sp_20"
+            android:layout_height="@dimen/dp_180"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text=":"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="@dimen/sp_36"/>
+
+        <com.bonlala.widget.view.StringScrollPicker
+            android:id="@+id/alarmMinuteScrollPicker"
+            android:layout_width="@dimen/dp_100"
+            app:spv_max_text_size="@dimen/sp_36"
+            app:spv_start_color="@color/white"
+            app:spv_end_color="@color/white"
+            app:spv_visible_item_count="5"
+            app:spv_min_text_size="@dimen/sp_20"
+            android:layout_height="@dimen/dp_180"/>
+
+
+    </LinearLayout>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="10dp"
+      android:layout_marginTop="@dimen/dp_20"
+      android:orientation="horizontal">
+
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="@dimen/sp_16"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:checked="true"
+          android:text="@string/string_monday"/>
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="@dimen/sp_16"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/string_tuesday"/>
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="@dimen/sp_16"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/string_wednesday"/>
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="@dimen/sp_16"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/string_thursday"/>
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="@dimen/sp_16"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/string_friday"/>
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="@dimen/sp_16"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/string_saturday"/>
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:textColor="@color/white"
+          android:textSize="@dimen/sp_16"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/string_sunday"/>
+
+  </LinearLayout>
+
+
+</LinearLayout>

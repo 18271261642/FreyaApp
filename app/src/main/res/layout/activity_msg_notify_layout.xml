@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/second_theme_color"
+    android:orientation="vertical">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/notifyTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:leftIcon="@drawable/ic_white_left_back"
+        app:lineVisible="false"
+        app:title="消息提醒开关"
+        app:rightIcon="@drawable/ic_white_help_img"
+        app:titleColor="@color/white" />
+
+
+    <TextView
+        android:layout_margin="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已绑定的账号"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12" />
+
+
+   <com.hjq.shape.layout.ShapeLinearLayout
+       android:layout_width="match_parent"
+       app:shape_startColor="#343348"
+       app:shape_endColor="#262D38"
+       app:shape_radius="@dimen/dp_10"
+       android:padding="@dimen/dp_5"
+       app:shape_angle="270"
+       android:layout_margin="@dimen/dp_5"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+
+       <ImageView
+           android:layout_gravity="center"
+           android:layout_marginStart="@dimen/dp_10"
+           android:layout_marginBottom="@dimen/dp_10"
+           android:layout_marginTop="@dimen/dp_10"
+           android:layout_width="wrap_content"
+           android:layout_marginEnd="@dimen/dp_5"
+           android:layout_height="wrap_content"
+           android:src="@mipmap/ic_notify_wx"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="微信"
+           android:textColor="@color/white"
+           android:textSize="@dimen/sp_18"
+           android:layout_margin="@dimen/dp_5"
+           android:layout_gravity="center"/>
+
+
+       <View
+           android:layout_width="0dp"
+           android:layout_height="1dp"
+           android:layout_weight="1"/>
+
+       <com.bonlala.widget.view.SwitchButton
+           android:id="@+id/notifyWxSwitch"
+           android:layout_width="wrap_content"
+           android:layout_gravity="center"
+           android:gravity="center"
+           android:layout_marginEnd="@dimen/dp_10"
+           android:layout_height="wrap_content"/>
+
+
+   </com.hjq.shape.layout.ShapeLinearLayout>
+
+
+
+    <com.hjq.shape.layout.ShapeLinearLayout
+        android:layout_width="match_parent"
+        app:shape_startColor="#343348"
+        app:shape_endColor="#262D38"
+        app:shape_radius="@dimen/dp_10"
+        android:padding="@dimen/dp_5"
+        app:shape_angle="270"
+        android:layout_margin="@dimen/dp_5"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_notify_qq"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QQ"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            android:layout_margin="@dimen/dp_5"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.bonlala.widget.view.SwitchButton
+            android:id="@+id/notifyQqSwitch"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_height="wrap_content"/>
+
+
+    </com.hjq.shape.layout.ShapeLinearLayout>
+
+
+
+    <com.hjq.shape.layout.ShapeLinearLayout
+        android:layout_width="match_parent"
+        app:shape_startColor="#343348"
+        app:shape_endColor="#262D38"
+        app:shape_radius="@dimen/dp_10"
+        android:padding="@dimen/dp_5"
+        app:shape_angle="270"
+        android:layout_margin="@dimen/dp_5"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_notify_discord"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="discord"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            android:layout_margin="@dimen/dp_5"
+            android:layout_gravity="center"/>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.bonlala.widget.view.SwitchButton
+            android:id="@+id/notifyDiscordSwitch"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_height="wrap_content"/>
+
+
+
+    </com.hjq.shape.layout.ShapeLinearLayout>
+
+</LinearLayout>

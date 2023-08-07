@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--未划过部分滑轨的颜色-->
+    <item
+        android:id="@android:id/background"
+        android:height="@dimen/dp_25"
+        android:gravity="center">
+
+        <shape>
+            <solid android:color="#303143" />
+            <corners android:radius="@dimen/dp_10"/>
+        </shape>
+
+
+    </item>
+
+    <!--划过的部分-->
+    <item
+        android:id="@android:id/progress"
+        android:height="@dimen/dp_15"
+        android:gravity="center">
+
+
+        <clip>
+        <shape>
+            <solid android:color="#FF5733"/>
+            <corners android:radius="@dimen/dp_10"/>
+        </shape>
+
+
+
+        </clip>
+    </item>
+
+</layer-list>

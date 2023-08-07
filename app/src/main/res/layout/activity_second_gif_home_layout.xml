@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/second_theme_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:titleColor="@color/white"
+        app:title="@string/string_upload_anim"
+        app:lineVisible="false"
+        app:leftIcon="@drawable/ic_white_left_back"/>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/secondDefaultAnimationLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/secondDefaultAnimationImgView"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/dp_130"
+                android:layout_height="@dimen/dp_130"
+                android:src="@mipmap/ic_second_add_gif"/>
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:padding="@dimen/dp_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="默认动画"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondGifCusLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/secondCusGifImageView"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/dp_130"
+                android:layout_height="@dimen/dp_130"
+                android:src="@mipmap/ic_second_add_gif"/>
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:padding="@dimen/dp_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="自定义上传"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <com.hjq.shape.layout.ShapeConstraintLayout
+        android:id="@+id/secondGifDormancyLayout"
+        android:layout_width="match_parent"
+        app:shape_startColor="#343348"
+        app:shape_angle="270"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_40"
+        app:shape_radius="@dimen/dp_10"
+        app:shape_endColor="#262D38"
+        app:shape_solidPressedColor="#80262D38"
+        android:layout_height="wrap_content">
+
+
+        <com.bonlala.widget.layout.SettingBar
+            android:id="@+id/secondGifDormancyBar"
+            app:bar_leftTextColor="@color/white"
+            app:bar_leftText="自动锁定"
+            app:bar_lineVisible="false"
+            app:bar_rightTextColor="@color/white"
+            app:bar_rightText="1分钟"
+            app:bar_rightDrawable="@mipmap/ic_white_right_back"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.hjq.shape.layout.ShapeConstraintLayout>
+
+
+
+    <com.hjq.shape.layout.ShapeConstraintLayout
+        android:id="@+id/secondCusSpeedLayout"
+        android:layout_width="match_parent"
+        app:shape_startColor="#343348"
+        app:shape_angle="270"
+        app:shape_solidPressedColor="#80262D38"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_20"
+        app:shape_radius="@dimen/dp_10"
+        app:shape_endColor="#262D38"
+        android:layout_height="wrap_content">
+
+
+        <com.bonlala.widget.layout.SettingBar
+            android:id="@+id/secondCusSpeedSettingBar"
+            app:bar_leftTextColor="@color/white"
+            app:bar_leftText="自定义速度"
+            app:bar_lineVisible="false"
+            app:bar_rightTextColor="@color/white"
+            app:bar_rightText="1分钟"
+            app:bar_rightDrawable="@mipmap/ic_white_right_back"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.hjq.shape.layout.ShapeConstraintLayout>
+
+
+
+</LinearLayout>

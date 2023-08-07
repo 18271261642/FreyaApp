@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hjq.shape.layout.ShapeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    app:shape_solidColor="@color/white"
+    app:shape_radius="@dimen/dp_10"
+    android:padding="@dimen/dp_10"
+    android:layout_margin="@dimen/dp_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/sp_20"
+        android:padding="@dimen/dp_8"
+        android:textColor="@color/black90"
+        android:text="@string/comm_prompt"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/string_is_delete_note"
+        android:textSize="@dimen/sp_18"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/dp_8"
+        android:textColor="@color/black80"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/dialogDeleteCancelTv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_8"
+            android:layout_height="wrap_content"
+            android:text="@string/common_cancel"
+            android:layout_gravity="center"
+            app:shape_solidColor="@color/white"
+            app:shape_solidPressedColor="@color/click_color"
+            android:gravity="center"
+            android:textSize="@dimen/sp_20"/>
+
+
+        <View
+            android:layout_width="1.5dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/click_color"/>
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/dialogDeleteConfirmTv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_8"
+            android:layout_height="wrap_content"
+            android:text="@string/common_confirm"
+            android:layout_gravity="center"
+            android:textColor="@color/blue"
+            app:shape_solidColor="@color/white"
+            app:shape_solidPressedColor="@color/click_color"
+            android:gravity="center"
+            android:textSize="@dimen/sp_20"/>
+
+
+    </LinearLayout>
+
+</com.hjq.shape.layout.ShapeLinearLayout>

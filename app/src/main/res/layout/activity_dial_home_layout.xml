@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ic_home_bg"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:lineVisible="false"
+        app:title="@string/string_upload_animat"
+        app:titleColor="@color/white"
+        app:leftIcon="@drawable/ic_white_left_back"/>
+
+
+    <LinearLayout
+        android:id="@+id/midHomeLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/sp_20"
+        android:layout_marginEnd="@dimen/sp_20"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/dialHomeCustomizeTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/string_selector_cus"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            app:shape_radius="@dimen/dp_15"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_15"
+            app:shape_solidColor="#77CBE5"
+            app:shape_solidPressedColor="#5077CBE5"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sp_40"/>
+
+        <com.hjq.shape.view.ShapeTextView
+            android:id="@+id/dialHomeDefaultTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/string_default_anim"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            app:shape_radius="@dimen/dp_15"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_15"
+            app:shape_solidColor="#77CBE5"
+            app:shape_solidPressedColor="#5077CBE5"/>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/midHomeLayout"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_15"
+            android:padding="@dimen/dp_10"
+            android:layout_gravity="center"
+            android:text="@string/string_gif_tips"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_15"
+            android:padding="@dimen/dp_5"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/string_gif_tips_desc"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

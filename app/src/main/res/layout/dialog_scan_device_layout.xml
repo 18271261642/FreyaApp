@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hjq.shape.layout.ShapeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/dp_10"
+    app:shape_radius="@dimen/dp_10"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:shape_solidColor="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:text="@string/string_selector_device"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:background="@drawable/dialog_top_shape"/>
+
+
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/scanRecyclerView"
+         android:layout_width="match_parent"
+         android:layout_margin="@dimen/dp_10"
+         tools:listitem="@layout/item_scan_device"
+         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+         android:layout_height="match_parent"/>
+
+</com.hjq.shape.layout.ShapeLinearLayout>

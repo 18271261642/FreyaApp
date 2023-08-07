@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="@color/second_theme_color"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_25"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_18" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个性化设置"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_0_5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_20" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.app.freya.widget.CheckButtonView
+                android:id="@+id/settingNoteLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:right_back_img="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                app:right_image="@mipmap/ic_setting_note"
+                app:left_txt_name="@string/string_setting_note"/>
+
+
+
+            <com.app.freya.widget.CheckButtonView
+                android:id="@+id/secondUploadGifView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                app:right_back_img="true"
+                app:right_image="@mipmap/ic_second_menu_ani"
+                app:left_txt_name="@string/string_upload_animat"/>
+
+
+
+            <com.app.freya.widget.CheckButtonView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                app:right_back_img="true"
+                app:right_image="@mipmap/ic_setting_screen_style"
+                app:left_txt_name="@string/string_setting_screen_style"/>
+
+            <com.app.freya.widget.CheckButtonView
+                android:id="@+id/settingAlarmLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                app:right_back_img="true"
+                android:visibility="gone"
+                app:right_image="@mipmap/ic_setting_alarm_img"
+                app:left_txt_name="@string/string_alarm_clock"/>
+
+
+            <com.app.freya.widget.CheckButtonView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                app:right_back_img="true"
+                android:visibility="gone"
+                app:right_image="@mipmap/ic_setting_clock_style_img"
+                app:left_txt_name="@string/string_clock_style"/>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

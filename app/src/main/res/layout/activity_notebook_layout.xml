@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/ic_home_bg"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:lineVisible="false"
+        app:title="@string/string_notebook"
+        app:titleColor="@color/white"
+        app:leftIcon="@drawable/ic_white_left_back"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_note"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_margin="@dimen/dp_10"/>
+
+    <com.hjq.shape.layout.ShapeLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shape_solidColor="@color/white"
+        app:shape_radius="@dimen/dp_18"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:background="@mipmap/ic_note_search_img"/>
+
+
+
+        <EditText
+            android:id="@+id/noteBookSearchEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/string_search_note"
+            android:padding="@dimen/dp_3"
+            android:textColor="#ff999999"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:background="@null"/>
+
+    </com.hjq.shape.layout.ShapeLinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+
+        <TextView
+            android:id="@+id/noteBookEmptyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_empty_note"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:drawableTop="@mipmap/ic_note_empty_img"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/noteBookRY"
+            android:layout_margin="@dimen/dp_10"
+            tools:listitem="@layout/item_notebook_layout"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/noteBookAddImgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="20dp"
+            android:src="@mipmap/icon_notebook_add"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>
