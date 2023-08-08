@@ -26,7 +26,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
     class ScanDeviceViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         var itemScanName  = itemView.findViewById<TextView>(R.id.itemSecondNameTv)
         val itemSecondMacTv = itemView.findViewById<TextView>(R.id.itemSecondMacTv)
-
+        val itemRecordTv = itemView.findViewById<TextView>(R.id.itemRecordTv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScanDeviceViewHolder {
@@ -40,6 +40,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
         holder.itemScanName.text = list[position].bluetoothDevice.name
         holder.itemSecondMacTv.text = list[position].bluetoothDevice.address
 
+        holder.itemRecordTv.text = list[position].recordStr
         holder.itemView.setOnClickListener {
             val position = holder.layoutPosition
             onItemClickListener?.onItemClick(position)

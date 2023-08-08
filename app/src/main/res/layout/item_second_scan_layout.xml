@@ -55,6 +55,13 @@
 
 
 
+        <TextView
+            android:id="@+id/itemRecordTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/itemSecondNameTv"
+            android:textColor="@color/white"/>
 
 
     </com.hjq.shape.layout.ShapeConstraintLayout>

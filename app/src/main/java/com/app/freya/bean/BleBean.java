@@ -14,10 +14,19 @@ public class BleBean {
     private int rssi;
 
 
+    private String recordStr;
+
+
     public BleBean(BluetoothDevice bluetoothDevice, int rssi) {
         this.bluetoothDevice = bluetoothDevice;
         this.rssi = rssi;
 
+    }
+
+    public BleBean(BluetoothDevice bluetoothDevice, int rssi, String recordStr) {
+        this.bluetoothDevice = bluetoothDevice;
+        this.rssi = rssi;
+        this.recordStr = recordStr;
     }
 
     public BluetoothDevice getBluetoothDevice() {
@@ -34,5 +43,14 @@ public class BleBean {
 
     public void setRssi(int rssi) {
         this.rssi = rssi;
+    }
+
+
+    public String getRecordStr() {
+        return recordStr;
+    }
+
+    public void setRecordStr(String recordStr) {
+        this.recordStr = recordStr;
     }
 }

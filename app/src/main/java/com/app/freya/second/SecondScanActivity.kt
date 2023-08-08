@@ -175,9 +175,10 @@ class SecondScanActivity : AppActivity() {
                     return
                 //030543  && recordStr.toLowerCase(Locale.ROOT)
                 //                        .contains("c003")
-                if (!BikeUtils.isEmpty(recordStr) && (recordStr.toLowerCase(Locale.ROOT)
-                                                    .contains("03c0"))
-                ) {
+                val isContains = recordStr.toLowerCase(Locale.ROOT).contains("03c0") ||
+                        recordStr.toLowerCase(Locale.ROOT).contains("c003")  ||
+                        recordStr.toLowerCase(Locale.ROOT).contains("c013") || recordStr.toLowerCase(Locale.ROOT).contains("13c0")
+                if (!BikeUtils.isEmpty(recordStr) && isContains) {
 
                     //判断少于40个设备就不添加了
                     if (repeatList?.size!! > 40) {
