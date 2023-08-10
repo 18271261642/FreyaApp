@@ -17,14 +17,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.FileProvider
-import androidx.core.graphics.drawable.RoundedBitmapDrawable
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.app.freya.BaseApplication
-import com.app.freya.CustomSpeedActivity
 import com.app.freya.R
 import com.app.freya.action.AppActivity
 import com.app.freya.ble.ConnStatus
-
 import com.app.freya.dialog.DeleteDeviceDialog
 import com.app.freya.dialog.ShowProgressDialog
 import com.app.freya.img.CameraActivity
@@ -40,7 +36,6 @@ import com.blala.blalable.keyboard.DialCustomBean
 import com.blala.blalable.keyboard.KeyBoardConstant
 import com.blala.blalable.listener.OnCommBackDataListener
 import com.bonlala.widget.layout.SettingBar
-
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -51,7 +46,6 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
 import com.hjq.shape.layout.ShapeConstraintLayout
 import com.hjq.toast.ToastUtils
-import com.tencent.mmkv.MMKV
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -59,6 +53,11 @@ import timber.log.Timber
 import java.io.File
 
 class SecondGifHomeActivity : AppActivity() {
+
+
+
+
+
 
     //自定义
     private var secondGifCusLayout : LinearLayout ?= null
@@ -128,7 +127,7 @@ class SecondGifHomeActivity : AppActivity() {
         secondGifCusLayout?.setOnClickListener(this)
         secondGifDormancyLayout?.setOnClickListener(this)
         secondCusSpeedLayout?.setOnClickListener(this)
-
+        secondDefaultAnimationImgView?.setOnClickListener(this)
 
         //默认动画
         findViewById<LinearLayout>(R.id.secondDefaultAnimationLayout).setOnClickListener {
@@ -145,6 +144,8 @@ class SecondGifHomeActivity : AppActivity() {
 
     override fun initData() {
         cropImgPath = this.getExternalFilesDir(Environment.DIRECTORY_DCIM)?.absolutePath
+
+
     }
 
 
@@ -154,6 +155,12 @@ class SecondGifHomeActivity : AppActivity() {
         val id = view?.id
 
         when (id){
+            R.id.secondDefaultAnimationImgView->{   //默认动画
+                if(BaseApplication.getBaseApplication().connStatus != ConnStatus.CONNECTED){
+                    return
+                }
+                BaseApplication.getBaseApplication().bleOperate.setLocalKeyBoardDial()
+            }
             R.id.secondGifCusLayout->{  //自定义
                 showPhotoDialog()
             }

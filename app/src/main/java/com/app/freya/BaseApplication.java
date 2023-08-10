@@ -29,6 +29,8 @@ import com.liulishuo.filedownloader.FileDownloader;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mmkv.MMKV;
 import org.litepal.LitePal;
+
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import timber.log.Timber;
@@ -52,6 +54,10 @@ public class BaseApplication extends BleApplication {
     public static String BASE_URL = "https://wuquedistribution.com:12349/";
 
     private RequestQueue requestQueue;
+
+
+    /**所有支持的设备列表，从后台获取**/
+    public static HashMap<String,String> supportDeviceTypeMap = new HashMap<>();
 
     @Override
     public void onCreate() {

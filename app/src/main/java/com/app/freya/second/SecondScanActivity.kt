@@ -154,7 +154,7 @@ class SecondScanActivity : AppActivity() {
 
     //开始扫描
     private fun startScan() {
-
+       val typeMap = BaseApplication.supportDeviceTypeMap
         BaseApplication.getBaseApplication().bleOperate.scanBleDevice(object : SearchResponse {
 
             override fun onSearchStarted() {
@@ -175,24 +175,34 @@ class SecondScanActivity : AppActivity() {
                     return
                 //030543  && recordStr.toLowerCase(Locale.ROOT)
                 //                        .contains("c003")
-                val isContains = recordStr.toLowerCase(Locale.ROOT).contains("03c0") ||
-                        recordStr.toLowerCase(Locale.ROOT).contains("c003")  ||
-                        recordStr.toLowerCase(Locale.ROOT).contains("c013") || recordStr.toLowerCase(Locale.ROOT).contains("13c0")
-                if (!BikeUtils.isEmpty(recordStr) && isContains) {
+//                val isContains = recordStr.toLowerCase(Locale.ROOT).contains("03c0") ||
+//                        recordStr.toLowerCase(Locale.ROOT).contains("c003")  ||
+//                        recordStr.toLowerCase(Locale.ROOT).contains("c013") || recordStr.toLowerCase(Locale.ROOT).contains("13c0")
 
-                    //判断少于40个设备就不添加了
-                    if (repeatList?.size!! > 40) {
-                        return
-                    }
-                    p0.address?.let { repeatList?.add(it) }
-                    list?.add(BleBean(p0.device, p0.rssi))
-                    list?.sortBy {
-                        Math.abs(it.rssi)
-                    }
-
-                    adapter?.notifyDataSetChanged()
+                if(BikeUtils.isEmpty(recordStr)){
+                    return
                 }
 
+                if(bleName.lowercase(Locale.ROOT).contains("huawei")){
+                    return
+                }
+
+                typeMap.forEach {
+
+                    if(recordStr.lowercase(Locale.ROOT).contains(it.key.lowercase(Locale.ROOT))){
+                        //判断少于40个设备就不添加了
+                        if (repeatList?.size!! > 40) {
+                            return
+                        }
+                        p0.address?.let { repeatList?.add(it) }
+                        list?.add(BleBean(p0.device, p0.rssi))
+                        list?.sortBy {
+                            Math.abs(it.rssi)
+                        }
+
+                        adapter?.notifyDataSetChanged()
+                    }
+                }
             }
 
             override fun onSearchStopped() {

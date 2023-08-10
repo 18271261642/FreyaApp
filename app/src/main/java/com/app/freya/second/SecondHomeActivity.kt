@@ -10,6 +10,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.app.freya.BaseApplication
 import com.app.freya.R
@@ -22,6 +23,7 @@ import com.app.freya.dialog.NoticeDialog
 import com.app.freya.utils.BikeUtils
 import com.app.freya.utils.MmkvUtils
 import com.app.freya.utils.NotificationUtils
+import com.app.freya.viewmodel.SecondHomeViewModel
 import com.app.freya.widget.HomeMenuView
 import com.bonlala.base.FragmentPagerAdapter
 import com.hjq.shape.layout.ShapeLinearLayout
@@ -32,7 +34,7 @@ import timber.log.Timber
  * 键盘二代主页，三个底部菜单
  */
 class SecondHomeActivity : AppActivity(){
-
+    private var viewModel : SecondHomeViewModel ?= null
 
     private var scanHolderLayout : LinearLayout ?= null
     private var dataAddLayout : ShapeLinearLayout?= null
@@ -73,7 +75,8 @@ class SecondHomeActivity : AppActivity(){
         mPagerAdapter?.addFragment(MenuSettingFragment.getInstance())
         mPagerAdapter?.addFragment(MenuDeviceFragment.getInstance())
         mViewPager?.adapter = mPagerAdapter
-
+        viewModel = ViewModelProvider(this).get(SecondHomeViewModel::class.java)
+        viewModel?.getAllSupportDeviceType(this)
     }
 
 
