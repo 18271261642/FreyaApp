@@ -24,6 +24,7 @@ import com.blala.blalable.Utils
 import com.hjq.permissions.XXPermissions
 import com.inuker.bluetooth.library.search.SearchResult
 import com.inuker.bluetooth.library.search.response.SearchResponse
+import timber.log.Timber
 import java.util.Locale
 
 /**
@@ -152,9 +153,11 @@ class SecondScanActivity : AppActivity() {
         }
 
 
+    val stringBuilder = StringBuilder()
     //开始扫描
     private fun startScan() {
        val typeMap = BaseApplication.supportDeviceTypeMap
+        stringBuilder.delete(0,stringBuilder.length);
         BaseApplication.getBaseApplication().bleOperate.scanBleDevice(object : SearchResponse {
 
             override fun onSearchStarted() {
@@ -162,13 +165,15 @@ class SecondScanActivity : AppActivity() {
             }
 
             override fun onDeviceFounded(p0: SearchResult) {
+                stringBuilder.delete(0,stringBuilder.length);
                 if (p0.getScanRecord() == null || p0.getScanRecord().isEmpty())
                     return
-                // Timber.e("--------扫描="+p0.name+" "+Utils.formatBtArrayToString(p0.getScanRecord()))
 
-                val recordStr = Utils.formatBtArrayToString(p0.getScanRecord())
+                val tempStr = Utils.formatBtArrayToString(p0.getScanRecord())
+               // stringBuilder.append(tempStr)
+                val recordStr = tempStr
                 val bleName = p0.name
-
+                Timber.e("--------扫描="+p0.name+" "+recordStr)
                 if (BikeUtils.isEmpty(bleName) || bleName.equals("NULL") || BikeUtils.isEmpty(p0.address))
                     return
                 if (repeatList?.contains(p0.address) == true)
@@ -186,16 +191,21 @@ class SecondScanActivity : AppActivity() {
                 if(bleName.lowercase(Locale.ROOT).contains("huawei")){
                     return
                 }
+                if (repeatList?.size!! > 40) {
+                    return
+                }
 
                 typeMap.forEach {
-
-                    if(recordStr.lowercase(Locale.ROOT).contains(it.key.lowercase(Locale.ROOT))){
+                    val keyStr = it.key
+                    val tempK = Utils.changeStr(keyStr);
+                    val scanRecord = recordStr.lowercase(Locale.ROOT)
+                    if(scanRecord.contains(keyStr.lowercase(Locale.ROOT)) || scanRecord.contains(tempK.lowercase(Locale.ROOT))){
                         //判断少于40个设备就不添加了
                         if (repeatList?.size!! > 40) {
                             return
                         }
                         p0.address?.let { repeatList?.add(it) }
-                        list?.add(BleBean(p0.device, p0.rssi))
+                        list?.add(BleBean(p0.device, p0.rssi,scanRecord))
                         list?.sortBy {
                             Math.abs(it.rssi)
                         }

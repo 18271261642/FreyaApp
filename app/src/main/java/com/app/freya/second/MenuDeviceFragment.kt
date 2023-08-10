@@ -11,6 +11,7 @@ import com.app.freya.ble.ConnStatus
 
 import com.app.freya.dialog.DeleteDeviceDialog
 import com.app.freya.utils.MmkvUtils
+import com.hjq.shape.layout.ShapeConstraintLayout
 import com.hjq.shape.view.ShapeTextView
 
 /**
@@ -23,6 +24,11 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
 
     //连接状态
     private var secondMenuDeviceConnStateTv : TextView ?= null
+
+    private var menuDeviceAboutAppLayout : ShapeConstraintLayout ?= null
+
+
+    private var menuDeviceAboutAppVersionTv :TextView?=null
 
 
     companion object{
@@ -37,6 +43,8 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     }
 
     override fun initView() {
+        menuDeviceAboutAppVersionTv = findViewById(R.id.menuDeviceAboutAppVersionTv)
+        menuDeviceAboutAppLayout = findViewById(R.id.menuDeviceAboutAppLayout)
         secondMenuDeviceConnStateTv= findViewById(R.id.secondMenuDeviceConnStateTv)
         deviceDeviceNameTv = findViewById(R.id.deviceDeviceNameTv)
         findViewById<ShapeTextView>(R.id.deviceNotifyTv).setOnClickListener {
@@ -57,7 +65,14 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     }
 
     override fun initData() {
-
+        try {
+            val packManager = attachActivity.packageManager
+            val packInfo = packManager.getPackageInfo(attachActivity.packageName,0)
+            val versioiName = packInfo.versionName
+            menuDeviceAboutAppVersionTv?.text = versioiName
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
     }
 
 

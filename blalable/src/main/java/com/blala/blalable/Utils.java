@@ -76,6 +76,18 @@ public class Utils {
         return stringBuilder.toString();
     }
 
+
+    public static String formatBtArrayToStringReverse(byte[] bt){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Byte b : bt){
+
+            stringBuilder.append(String.format("%02x",b)).reverse();
+        }
+        return stringBuilder.toString();
+    }
+
+
+
     /**
      * 4位字节数组转换为整型
      * @param b
@@ -647,6 +659,19 @@ public class Utils {
     public static String getFormatDateStr(long time,String format){
         SimpleDateFormat sdf = new SimpleDateFormat(format,Locale.CHINA);
         return sdf.format(new Date(time));
+    }
+
+
+    private static StringBuffer stringBuffer = new StringBuffer();
+    public static String changeStr(String str){
+        stringBuffer.delete(0,stringBuffer.length());
+        if(str.length() == 4){
+            byte[] arr = hexStringToByte(str);
+            stringBuffer.append(arr[1]);
+            stringBuffer.append(arr[0]);
+            return stringBuffer.toString();
+        }
+        return null;
     }
 
 }

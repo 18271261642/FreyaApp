@@ -184,6 +184,47 @@
                 app:shape_startColor="#343348" />
 
 
+            <com.hjq.shape.layout.ShapeConstraintLayout
+                android:id="@+id/menuDeviceAboutAppLayout"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:paddingStart="@dimen/dp_20"
+                android:paddingTop="15dp"
+                app:shape_endColor="#262D38"
+                app:shape_radius="@dimen/dp_20"
+                app:shape_solidPressedColor="#80262D38"
+                app:shape_startColor="#343348"
+                android:paddingBottom="15dp"
+                android:layout_height="wrap_content">
+
+                <com.hjq.shape.view.ShapeTextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="关于掌上悟确"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_18"
+                  />
+
+                <TextView
+                    android:id="@+id/menuDeviceAboutAppVersionTv"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_18"
+                    android:textColor="@color/white"
+                    android:text="v1.0"/>
+
+            </com.hjq.shape.layout.ShapeConstraintLayout>
+
+
+
             <com.hjq.shape.view.ShapeTextView
                 android:id="@+id/deviceUnBindTv"
                 android:layout_width="match_parent"
