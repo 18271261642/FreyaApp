@@ -667,8 +667,8 @@ public class Utils {
         stringBuffer.delete(0,stringBuffer.length());
         if(str.length() == 4){
             byte[] arr = hexStringToByte(str);
-            stringBuffer.append(arr[1]);
-            stringBuffer.append(arr[0]);
+            stringBuffer.append(String.format("%02x",arr[1]));
+            stringBuffer.append(String.format("%02x",arr[0]));
             return stringBuffer.toString();
         }
         return null;

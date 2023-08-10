@@ -173,7 +173,7 @@ class SecondScanActivity : AppActivity() {
                // stringBuilder.append(tempStr)
                 val recordStr = tempStr
                 val bleName = p0.name
-                Timber.e("--------扫描="+p0.name+" "+recordStr)
+               // Timber.e("--------扫描="+p0.name+" "+recordStr)
                 if (BikeUtils.isEmpty(bleName) || bleName.equals("NULL") || BikeUtils.isEmpty(p0.address))
                     return
                 if (repeatList?.contains(p0.address) == true)
@@ -197,18 +197,22 @@ class SecondScanActivity : AppActivity() {
 
                 typeMap.forEach {
                     val keyStr = it.key
-                    val tempK = Utils.changeStr(keyStr);
+                    val tempK = Utils.changeStr(keyStr)
                     val scanRecord = recordStr.lowercase(Locale.ROOT)
+                    Timber.e("----转换="+tempK)
                     if(scanRecord.contains(keyStr.lowercase(Locale.ROOT)) || scanRecord.contains(tempK.lowercase(Locale.ROOT))){
                         //判断少于40个设备就不添加了
                         if (repeatList?.size!! > 40) {
                             return
                         }
-                        p0.address?.let { repeatList?.add(it) }
-                        list?.add(BleBean(p0.device, p0.rssi,scanRecord))
-                        list?.sortBy {
-                            Math.abs(it.rssi)
+                        if(!repeatList!!.contains(p0.address)){
+                            p0.address?.let { repeatList?.add(it) }
+                            list?.add(BleBean(p0.device, p0.rssi,scanRecord))
+                            list?.sortBy {
+                                Math.abs(it.rssi)
+                            }
                         }
+
 
                         adapter?.notifyDataSetChanged()
                     }
