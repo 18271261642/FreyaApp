@@ -144,6 +144,7 @@ class SecondScanActivity : AppActivity() {
                     bean.bluetoothDevice.name, bean.bluetoothDevice.address
                 ) { mac, status ->
                     hideDialog()
+                    MmkvUtils.saveProductNumberCode(bean.productNumber)
                     MmkvUtils.saveConnDeviceMac(mac)
                     MmkvUtils.saveConnDeviceName(bean.bluetoothDevice.name)
                     BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
@@ -207,7 +208,7 @@ class SecondScanActivity : AppActivity() {
                         }
                         if(!repeatList!!.contains(p0.address)){
                             p0.address?.let { repeatList?.add(it) }
-                            list?.add(BleBean(p0.device, p0.rssi,scanRecord))
+                            list?.add(BleBean(p0.device, p0.rssi,scanRecord,keyStr))
                             list?.sortBy {
                                 Math.abs(it.rssi)
                             }

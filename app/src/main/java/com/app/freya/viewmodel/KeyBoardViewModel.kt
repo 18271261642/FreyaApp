@@ -12,6 +12,7 @@ import com.app.freya.BaseApplication
 import com.app.freya.bean.OtaBean
 import com.app.freya.utils.BikeUtils
 import com.app.freya.utils.GsonUtils
+import com.app.freya.utils.MmkvUtils
 import com.google.gson.Gson
 import com.hjq.http.EasyConfig
 import com.hjq.http.EasyHttp
@@ -35,9 +36,9 @@ class KeyBoardViewModel : ViewModel() {
 
     //检查版本
     fun checkVersion(lifecycleOwner: LifecycleOwner, versionCode: Int) {
-
+        val productNumber = MmkvUtils.getSaveProductNumber()
         val stringRequest =
-            StringRequest(BaseApplication.BASE_URL + "checkUpdate?firmwareVersionCode=$versionCode&productNumber=c003",
+            StringRequest(BaseApplication.BASE_URL + "checkUpdate?firmwareVersionCode=$versionCode&productNumber="+productNumber,
                 { response ->
                     Timber.e("----response=" + response)
                     val jsonObject = JSONObject(response)

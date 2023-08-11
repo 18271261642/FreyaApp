@@ -27,6 +27,12 @@ public class MmkvUtils {
     /**连接的设备mac**/
     private static final String CONN_DEVICE_MAC = "b_conn_device_mac";
     private static final String CONN_DEVICE_NAME = "b_conn_device_name";
+
+    /**设备的产品编码，根据后台获取保存**/
+    private static final String PRODUCT_NUMBER = "product_number_code";
+
+
+
     //是否已经同意用户协议
     private static final String IS_AGREE_PRIVACY = "is_privacy";
     //公英制
@@ -319,5 +325,14 @@ public class MmkvUtils {
 
     public static int getAutoLock(){
         return (int) getSaveParams(AUTO_LOCK_KEY,0);
+    }
+
+
+    public static void saveProductNumberCode(String code){
+        setSaveObjParams(PRODUCT_NUMBER,code);
+    }
+
+    public static String getSaveProductNumber(){
+        return (String) getSaveParams(PRODUCT_NUMBER,"");
     }
 }

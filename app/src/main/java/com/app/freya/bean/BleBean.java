@@ -13,6 +13,9 @@ public class BleBean {
 
     private int rssi;
 
+    /**VersionNumber**/
+    private String productNumber;
+
 
     private String recordStr;
 
@@ -26,6 +29,13 @@ public class BleBean {
     public BleBean(BluetoothDevice bluetoothDevice, int rssi, String recordStr) {
         this.bluetoothDevice = bluetoothDevice;
         this.rssi = rssi;
+        this.recordStr = recordStr;
+    }
+
+    public BleBean(BluetoothDevice bluetoothDevice, int rssi, String productNumber, String recordStr) {
+        this.bluetoothDevice = bluetoothDevice;
+        this.rssi = rssi;
+        this.productNumber = productNumber;
         this.recordStr = recordStr;
     }
 
@@ -52,5 +62,13 @@ public class BleBean {
 
     public void setRecordStr(String recordStr) {
         this.recordStr = recordStr;
+    }
+
+    public String getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
     }
 }
