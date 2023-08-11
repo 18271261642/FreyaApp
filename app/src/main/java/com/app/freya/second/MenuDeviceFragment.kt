@@ -65,6 +65,11 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     }
 
     override fun initData() {
+
+        attachActivity.setOnStateListener{
+            showConnState()
+        }
+
         try {
             val packManager = attachActivity.packageManager
             val packInfo = packManager.getPackageInfo(attachActivity.packageName,0)
@@ -78,6 +83,10 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
 
     override fun onFragmentResume(first: Boolean) {
         super.onFragmentResume(first)
+        showConnState()
+    }
+
+    private fun showConnState(){
         deviceDeviceNameTv?.text = MmkvUtils.getConnDeviceName()
         val isConnStatus = BaseApplication.getBaseApplication().connStatus
         secondMenuDeviceConnStateTv?.text =  if(isConnStatus == ConnStatus.CONNECTED) resources.getString(R.string.string_connected) else (if( isConnStatus == ConnStatus.CONNECTING) resources.getString(R.string.string_connecting) else resources.getString(R.string.string_retry_conn))

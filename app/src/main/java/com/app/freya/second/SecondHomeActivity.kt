@@ -34,6 +34,17 @@ import timber.log.Timber
  * 键盘二代主页，三个底部菜单
  */
 class SecondHomeActivity : AppActivity(){
+
+
+    private var onStateListener : OnCommItemClickListener ?= null
+
+
+    fun setOnStateListener(li : OnCommItemClickListener){
+        this.onStateListener = li
+    }
+
+
+
     private var viewModel : SecondHomeViewModel ?= null
 
     private var scanHolderLayout : LinearLayout ?= null
@@ -120,6 +131,8 @@ class SecondHomeActivity : AppActivity(){
         val isMac = MmkvUtils.getConnDeviceMac()
         Timber.e("-----isMac="+isMac)
         scanHolderLayout?.visibility = if(BikeUtils.isEmpty(isMac)) View.VISIBLE else View.GONE
+
+        onStateListener?.onItemClick(0x00)
     }
 
 
