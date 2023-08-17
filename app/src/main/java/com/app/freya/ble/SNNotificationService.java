@@ -11,6 +11,9 @@ import android.service.notification.StatusBarNotification;
 
 import com.app.freya.BaseApplication;
 import com.app.freya.utils.BikeUtils;
+import com.app.freya.utils.MmkvUtils;
+import com.blala.blalable.Utils;
+import com.blala.blalable.keyboard.KeyBoardConstant;
 
 import java.util.Locale;
 
@@ -107,15 +110,28 @@ public class SNNotificationService extends NotificationListenerService {
 //                TLog.Companion.error("SNNotificationService TYPE_NOTIFICATION_LISTENER_SERVICE");
 //                SNNotificationPushHelper.getInstance().handleMessage(SNNotificationPushHelper.TYPE_NOTIFICATION_LISTENER_SERVICE, packName, title, content, this);
 
+                String str = "title:"+title+" content:"+content+"\n"+"包名:"+packName+"\n";
+                sendBroad(str);
                 //微信
                 if(packName.toLowerCase(Locale.ROOT).equals(WX_PACK_NAME)){
-
+                    boolean isOpen = (boolean) MmkvUtils.getSaveParams(MmkvUtils.WX_KEY,false);
+                    if(!isOpen){
+                       return;
+                    }
                     sendApps(0x05,title,content);
                 }
                 if(packName.toLowerCase(Locale.ROOT).equals(QQ_PACK_NAME)){
+                    boolean isOpen = (boolean) MmkvUtils.getSaveParams(MmkvUtils.QQ_KEY,false);
+                    if(!isOpen){
+                        return;
+                    }
                     sendApps(0x09,title,content);
                 }
                 if(packName.toLowerCase(Locale.ROOT).equals(DISCORD_PACK_NAME)){
+                    boolean isOpen = (boolean) MmkvUtils.getSaveParams(MmkvUtils.DISCORD_KEY,false);
+                    if(!isOpen){
+                        return;
+                    }
                     sendApps(0x0D,title,content);
                 }
 
@@ -144,9 +160,23 @@ public class SNNotificationService extends NotificationListenerService {
 
 
     private void sendApps(int type,String title,String content){
-        if(BaseApplication.getBaseApplication().getConnStatus() == ConnStatus.IS_SYNC_DIAL){
+        Timber.e("-------发送app数据="+type+" title="+title+" content="+content);
+
+        String st = "连接状态:"+BaseApplication.getBaseApplication().getConnStatus()+"\n"+"指令:"+ Utils.formatBtArrayToString(KeyBoardConstant.getMsgNotifyData(type, title, content));
+        sendBroad(st);
+        if(BaseApplication.getBaseApplication().getConnStatus() != ConnStatus.NOT_CONNECTED){
             return;
         }
         BaseApplication.getBaseApplication().getBleOperate().sendNotifyMsgData(type,title,content);
+
     }
+
+
+    private void sendBroad(String content){
+        Intent intent = new Intent();
+        intent.setAction("com.app.freya.ble.notify");
+        intent.putExtra("notify",content);
+        this.sendBroadcast(intent);
+    }
+
 }

@@ -5,8 +5,10 @@ import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Intent
 import android.view.View
+import android.widget.TextView
 import com.app.freya.R
 import com.app.freya.action.AppActivity
+import com.app.freya.ble.NotifyLogActivity
 import com.app.freya.utils.MmkvUtils
 import com.bonlala.widget.view.SwitchButton
 import com.hjq.bar.OnTitleBarListener
@@ -36,6 +38,13 @@ class NotifyOpenActivity : AppActivity() {
         notifyDiscordSwitch = findViewById(R.id.notifyDiscordSwitch)
         notifyQqSwitch = findViewById(R.id.notifyQqSwitch)
         notifyWxSwitch = findViewById(R.id.notifyWxSwitch)
+
+
+        findViewById<TextView>(R.id.notifyTempTv).setOnClickListener {
+            startActivity(NotifyLogActivity::class.java)
+        }
+
+
 
         notifyWxSwitch?.setOnCheckedChangeListener { button, checked ->
             MmkvUtils.setSaveObjParams(MmkvUtils.WX_KEY,checked)
