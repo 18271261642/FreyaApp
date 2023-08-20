@@ -18,6 +18,16 @@ import java.util.Timer;
 public class KeyBoardConstant {
 
 
+    /**
+     * 获取设备系统信息
+     * @return data
+     */
+    public static byte[] getSysData(){
+        return new byte[]{0x00,0x17};
+    }
+
+
+
     private static byte[] sendData;
 
     public static byte[] getDialByte(DialCustomBean dialCustomBean){

@@ -8,6 +8,7 @@ import com.app.freya.BaseApplication
 import com.app.freya.R
 import com.app.freya.action.TitleBarFragment
 import com.app.freya.ble.ConnStatus
+import com.app.freya.ble.OnConnStateListener
 
 import com.app.freya.dialog.DeleteDeviceDialog
 import com.app.freya.utils.MmkvUtils
@@ -30,6 +31,11 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
 
     private var menuDeviceAboutAppVersionTv :TextView?=null
 
+    //电量
+    private var menuBatteryTv : TextView ?= null
+
+
+
 
     companion object{
 
@@ -43,6 +49,7 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     }
 
     override fun initView() {
+        menuBatteryTv = findViewById(R.id.menuBatteryTv)
         menuDeviceAboutAppVersionTv = findViewById(R.id.menuDeviceAboutAppVersionTv)
         menuDeviceAboutAppLayout = findViewById(R.id.menuDeviceAboutAppLayout)
         secondMenuDeviceConnStateTv= findViewById(R.id.secondMenuDeviceConnStateTv)
@@ -62,6 +69,14 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
         findViewById<ShapeTextView>(R.id.menuDeviceRecyclerLayout).setOnClickListener {
             showUnBindDialog(false)
         }
+
+        secondMenuDeviceConnStateTv?.setOnClickListener {
+            val connState = BaseApplication.getBaseApplication().connStatus
+            if(connState == ConnStatus.CONNECTED || connState == ConnStatus.CONNECTING){
+                return@setOnClickListener
+            }
+            attachActivity.retryConn()
+        }
     }
 
     override fun initData() {
@@ -69,6 +84,17 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
         attachActivity.setOnStateListener{
             showConnState()
         }
+
+        attachActivity.setOnConnStateListener(object : OnConnStateListener{
+            override fun onConnState(connStatus: ConnStatus?) {
+                secondMenuDeviceConnStateTv?.text =  if(connStatus == ConnStatus.CONNECTED) resources.getString(R.string.string_connected) else (if( connStatus == ConnStatus.CONNECTING) resources.getString(R.string.string_connecting) else resources.getString(R.string.string_retry_conn))
+                if(connStatus == ConnStatus.CONNECTED){
+                    getBattery()
+                }else{
+                    menuBatteryTv?.text = "电量:--"
+                }
+            }
+        })
 
         try {
             val packManager = attachActivity.packageManager
@@ -90,8 +116,23 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
         deviceDeviceNameTv?.text = MmkvUtils.getConnDeviceName()
         val isConnStatus = BaseApplication.getBaseApplication().connStatus
         secondMenuDeviceConnStateTv?.text =  if(isConnStatus == ConnStatus.CONNECTED) resources.getString(R.string.string_connected) else (if( isConnStatus == ConnStatus.CONNECTING) resources.getString(R.string.string_connecting) else resources.getString(R.string.string_retry_conn))
+        if(isConnStatus == ConnStatus.CONNECTED){
+            getBattery()
+        }else{
+            menuBatteryTv?.text = "电量:--"
+        }
+
+
     }
 
+
+    //获取电量
+    private fun getBattery(){
+        BaseApplication.getBaseApplication().bleOperate.getDeviceSystemData { circleSpeed, batteryValue, cpuTemperatureC, cpuTemperatureF, gpuTemC, gpuTemF, hardTemC, hardTemF ->
+            menuBatteryTv?.text = "电量:"+batteryValue+"%"
+
+        }
+    }
 
     private fun showUnBindDialog(isUnBind : Boolean){
         val dialog = DeleteDeviceDialog(attachActivity, com.bonlala.base.R.style.BaseDialogTheme)
@@ -104,10 +145,14 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
             dialog.dismiss()
             if (position == 0x01) {   //解绑
                 if(isUnBind){
+
                     BaseApplication.getBaseApplication().bleOperate.disConnYakDevice()
                     MmkvUtils.saveConnDeviceName("")
                     MmkvUtils.saveConnDeviceMac("")
                     attachActivity.showIsAddDevice()
+                }else{
+                    BaseApplication.getBaseApplication().bleOperate.setRecyclerDevice()
+
                 }
 
             }

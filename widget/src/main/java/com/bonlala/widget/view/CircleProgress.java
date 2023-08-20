@@ -509,4 +509,13 @@ public class CircleProgress extends View {
     public void setNeedGradient(boolean needGradient) {
         isNeedGradient = needGradient;
     }
+
+
+    public int[] getmGradientColors() {
+        return mGradientColors;
+    }
+
+    public void setmGradientColors(int[] mGradientColors) {
+        this.mGradientColors = mGradientColors;
+    }
 }

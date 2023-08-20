@@ -1,14 +1,22 @@
 package com.app.freya.second
 
+import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
@@ -19,13 +27,17 @@ import com.app.freya.action.AppActivity
 import com.app.freya.action.AppFragment
 import com.app.freya.adapter.OnCommItemClickListener
 import com.app.freya.ble.ConnStatus
+import com.app.freya.ble.OnConnStateListener
 import com.app.freya.dialog.NoticeDialog
 import com.app.freya.utils.BikeUtils
+import com.app.freya.utils.BonlalaUtils
 import com.app.freya.utils.MmkvUtils
 import com.app.freya.utils.NotificationUtils
 import com.app.freya.viewmodel.SecondHomeViewModel
 import com.app.freya.widget.HomeMenuView
+import com.blala.blalable.BleConstant
 import com.bonlala.base.FragmentPagerAdapter
+import com.hjq.permissions.XXPermissions
 import com.hjq.shape.layout.ShapeLinearLayout
 import com.hjq.toast.ToastUtils
 import timber.log.Timber
@@ -33,22 +45,28 @@ import timber.log.Timber
 /**
  * 键盘二代主页，三个底部菜单
  */
-class SecondHomeActivity : AppActivity(){
+class SecondHomeActivity : AppActivity() {
 
 
-    private var onStateListener : OnCommItemClickListener ?= null
+    private var onStateListener: OnCommItemClickListener? = null
 
 
-    fun setOnStateListener(li : OnCommItemClickListener){
+
+    private var onConnStatusListener : OnConnStateListener ?= null
+
+    fun setOnConnStateListener(c : OnConnStateListener){
+        this.onConnStatusListener = c
+    }
+
+    fun setOnStateListener(li: OnCommItemClickListener) {
         this.onStateListener = li
     }
 
 
+    private var viewModel: SecondHomeViewModel? = null
 
-    private var viewModel : SecondHomeViewModel ?= null
-
-    private var scanHolderLayout : LinearLayout ?= null
-    private var dataAddLayout : ShapeLinearLayout?= null
+    private var scanHolderLayout: LinearLayout? = null
+    private var dataAddLayout: ShapeLinearLayout? = null
 
     private val INTENT_KEY_IN_FRAGMENT_INDEX = "fragmentIndex"
     private val INTENT_KEY_IN_FRAGMENT_CLASS = "fragmentClass"
@@ -57,7 +75,7 @@ class SecondHomeActivity : AppActivity(){
 
     private var mPagerAdapter: FragmentPagerAdapter<AppFragment<*>>? = null
 
-    private var secondHomeMenuView : HomeMenuView ?= null
+    private var secondHomeMenuView: HomeMenuView? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_second_home_layout
@@ -69,7 +87,7 @@ class SecondHomeActivity : AppActivity(){
         secondHomeMenuView = findViewById(R.id.secondHomeMenuView)
         scanHolderLayout = findViewById(R.id.scanHolderLayout)
 
-        secondHomeMenuView?.setOnItemClick(object :OnCommItemClickListener{
+        secondHomeMenuView?.setOnItemClick(object : OnCommItemClickListener {
             override fun onItemClick(position: Int) {
                 switchFragment(position)
             }
@@ -88,6 +106,16 @@ class SecondHomeActivity : AppActivity(){
         mViewPager?.adapter = mPagerAdapter
         viewModel = ViewModelProvider(this).get(SecondHomeViewModel::class.java)
         viewModel?.getAllSupportDeviceType(this)
+
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(BleConstant.BLE_CONNECTED_ACTION)
+        intentFilter.addAction(BleConstant.BLE_DIS_CONNECT_ACTION)
+        intentFilter.addAction(BleConstant.BLE_SCAN_COMPLETE_ACTION)
+        intentFilter.addAction(BleConstant.BLE_START_SCAN_ACTION)
+        registerReceiver(broadcastReceiver,intentFilter)
+
+        retryConn()
     }
 
 
@@ -121,16 +149,17 @@ class SecondHomeActivity : AppActivity(){
                 mViewPager!!.currentItem = fragmentIndex
 
             }
+
             else -> {}
         }
     }
 
     //是否显示添加设备
-     fun showIsAddDevice(){
+    fun showIsAddDevice() {
         //是否有连接过
         val isMac = MmkvUtils.getConnDeviceMac()
-        Timber.e("-----isMac="+isMac)
-        scanHolderLayout?.visibility = if(BikeUtils.isEmpty(isMac)) View.VISIBLE else View.GONE
+        Timber.e("-----isMac=" + isMac)
+        scanHolderLayout?.visibility = if (BikeUtils.isEmpty(isMac)) View.VISIBLE else View.GONE
 
         onStateListener?.onItemClick(0x00)
     }
@@ -221,5 +250,116 @@ class SecondHomeActivity : AppActivity(){
     private fun hasNotificationListenPermission(context: Context): Boolean {
         val packageNames = NotificationManagerCompat.getEnabledListenerPackages(context)
         return !packageNames.isEmpty() && packageNames.contains(context.packageName)
+    }
+
+
+    //判断是否连接，未连接重连
+    fun retryConn() {
+        val connBleMac = MmkvUtils.getConnDeviceMac()
+        if (!BikeUtils.isEmpty(connBleMac)) {
+            //是否已经连接
+            val isConn = BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED
+            if (isConn) {
+                return
+            }
+            verifyScanFun(connBleMac)
+        }
+    }
+
+    //判断是否有位置权限了，没有请求权限
+    private fun verifyScanFun(mac: String) {
+
+        //判断蓝牙是否开启
+        if (!BikeUtils.isBleEnable(this)) {
+            BikeUtils.openBletooth(this)
+            return
+        }
+        //判断权限
+        val isPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+        if (!isPermission) {
+            XXPermissions.with(this).permission(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            ).request { permissions, all ->
+                connToDevice(mac)
+            }
+            // ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION),0x00)
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+            XXPermissions.with(this).permission(
+                arrayOf(
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_ADVERTISE
+                )
+            ).request { permissions, all ->
+                //verifyScanFun()
+            }
+        }
+
+
+        //判断蓝牙是否打开
+        val isOpenBle = BonlalaUtils.isOpenBlue(this@SecondHomeActivity)
+        if (!isOpenBle) {
+            BonlalaUtils.openBluetooth(this)
+            return
+        }
+        connToDevice(mac)
+    }
+
+    private fun connToDevice(mac: String) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            val service = BaseApplication.getBaseApplication().connStatusService
+
+            if (service != null) {
+                BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTING
+                onConnStatusListener?.onConnState(ConnStatus.CONNECTING)
+                service.autoConnDevice(mac, false)
+            }
+
+        }, 3000)
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
+    }
+
+
+
+    private val broadcastReceiver : BroadcastReceiver = object : BroadcastReceiver(){
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            val action = p1?.action
+            Timber.e("---------acdtion="+action)
+            if(action == BleConstant.BLE_START_SCAN_ACTION){ //开始连接了
+                BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTING
+                onConnStatusListener?.onConnState(ConnStatus.CONNECTING)
+            }
+            if(action == BleConstant.BLE_CONNECTED_ACTION){
+                ToastUtils.show(resources.getString(R.string.string_conn_success))
+                BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
+                BaseApplication.getBaseApplication().bleOperate.stopScanDevice()
+                onConnStatusListener?.onConnState(ConnStatus.CONNECTED)
+              //  showVersion()
+
+               // setDialogTxtShow(resources.getString(R.string.string_upgrade_success))
+            }
+            if(action == BleConstant.BLE_DIS_CONNECT_ACTION){
+                ToastUtils.show(resources.getString(R.string.string_conn_disconn))
+                onConnStatusListener?.onConnState(ConnStatus.NOT_CONNECTED)
+              //  showVersion()
+            }
+        }
+
     }
 }

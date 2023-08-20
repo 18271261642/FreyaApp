@@ -79,6 +79,19 @@ class SecondScanActivity : AppActivity() {
             BikeUtils.openBletooth(this)
             return
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+            XXPermissions.with(this).permission(
+                arrayOf(
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    Manifest.permission.BLUETOOTH_SCAN
+                )
+            ).request { permissions, all ->
+                //verifyScanFun()
+            }
+        }
+
+
         //判断权限
         val isPermission = ActivityCompat.checkSelfPermission(
             this,
@@ -97,18 +110,7 @@ class SecondScanActivity : AppActivity() {
             return
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 
-            XXPermissions.with(this).permission(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_ADVERTISE
-                )
-            ).request { permissions, all ->
-                //verifyScanFun()
-            }
-        }
 
 
         //判断蓝牙是否打开

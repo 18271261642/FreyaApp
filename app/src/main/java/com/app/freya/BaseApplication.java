@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.app.freya.action.DebugLoggerTree;
 import com.app.freya.ble.ConnStatus;
 import com.app.freya.ble.ConnStatusService;
+import com.app.freya.ble.SNNotificationService;
 import com.app.freya.dialog.OkHttpRetryInterceptor;
 import com.app.freya.http.RequestHandler;
 import com.app.freya.http.RequestServer;
@@ -98,6 +99,10 @@ public class BaseApplication extends BleApplication {
         Intent intent = new Intent(this, ConnStatusService.class);
         this.bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
 
+
+        Intent it = new Intent(this, SNNotificationService.class);
+        this.bindService(it,notifyConnection,Context.BIND_AUTO_CREATE);
+
         initThirdSDK();
     }
 
@@ -177,6 +182,18 @@ public class BaseApplication extends BleApplication {
         }
     };
 
+
+    private final ServiceConnection notifyConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     //获取连接状态
     public ConnStatus getConnStatus(){

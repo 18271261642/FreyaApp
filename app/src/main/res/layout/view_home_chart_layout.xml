@@ -86,10 +86,12 @@
                 android:orientation="vertical">
 
                 <com.bonlala.widget.view.CircleProgress
+                    android:id="@+id/homeBatteryCircleProgress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:bgArcColor="#33F75A37"
                     app:bgArcWidth="15dp"
+                    app:arcWidth="15dp"
                     app:unit="电池电量"
                     app:valueSize="35sp"
                     app:unitSize="@dimen/sp_15"

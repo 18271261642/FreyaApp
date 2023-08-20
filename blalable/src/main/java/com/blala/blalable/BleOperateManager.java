@@ -23,6 +23,7 @@ import com.blala.blalable.listener.OnKeyBoardListener;
 import com.blala.blalable.listener.OnMeasureDataListener;
 import com.blala.blalable.listener.OnRealTimeDataListener;
 import com.blala.blalable.listener.OnSendWriteDataListener;
+import com.blala.blalable.listener.OnSystemDataListener;
 import com.blala.blalable.listener.OnWatchFaceVerifyListener;
 import com.blala.blalable.listener.OnWriteProgressListener;
 import com.blala.blalable.listener.WriteBack24HourDataListener;
@@ -54,6 +55,8 @@ public class BleOperateManager {
     private final BleManager bleManager = BleApplication.getInstance().getBleManager();
 
     private final BleConstant bleConstant = new BleConstant();
+
+    private final KeyBoardConstant keyBoardConstant = new KeyBoardConstant();
 
     public static BleOperateManager getInstance() {
         if (bleOperateManager == null) {
@@ -147,6 +150,18 @@ public class BleOperateManager {
     }
 
 
+    /**
+     * 恢复出厂设置
+     */
+    public void setRecyclerDevice(){
+        bleManager.writeDataToDevice(Utils.getFullPackage(new byte[]{0x01, 0x01}), new WriteBackDataListener() {
+            @Override
+            public void backWriteData(byte[] data) {
+
+            }
+        });
+    }
+
 
     public void setClearListener() {
         bleManager.setClearListener();
@@ -226,6 +241,27 @@ public class BleOperateManager {
         bleManager.clearListener();
     }
 
+
+
+    public void getDeviceSystemData(OnSystemDataListener onSystemDataListener){
+        bleManager.writeDataToDevice(Utils.getFullPackage(keyBoardConstant.getSysData()), new WriteBackDataListener() {
+            @Override
+            public void backWriteData(byte[] data) {
+                Log.e(TAG,"---------获取系统信息="+Utils.formatBtArrayToString(data));
+                if(data.length> 14 && (data[9] & 0xff) == 24){
+                    //风扇转速
+                    int circleSpeed = Utils.getIntFromBytes(data[13],data[12],data[11],data[10]);
+                    //电量
+                    int battery = data[14] & 0xff;
+
+                    if(onSystemDataListener != null){
+                        onSystemDataListener.onSysData(circleSpeed,battery,0,0,0,0,0,0);
+                    }
+                }
+
+            }
+        });
+    }
 
 
     /**

@@ -1,6 +1,7 @@
 package com.app.freya.second
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -326,7 +327,7 @@ class SecondGifHomeActivity : AppActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == UCrop.REQUEST_CROP){
+        if(requestCode == UCrop.REQUEST_CROP && resultCode == Activity.RESULT_OK){
             //裁剪后的图片地址
             val cropFile = File(saveCropPath)
             if(cropFile != null){
