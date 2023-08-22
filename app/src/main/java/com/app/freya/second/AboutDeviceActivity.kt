@@ -119,21 +119,25 @@ class AboutDeviceActivity : AppActivity() {
     }
 
 
+    val stringBuffer = StringBuilder()
     private fun showVersion(){
-
+        stringBuffer.delete(0,stringBuffer.length)
         BaseApplication.getBaseApplication().bleOperate.getDeviceVersionData(object :
             OnCommBackDataListener {
             override fun onIntDataBack(value: IntArray?) {
                 Timber.e("------版本好="+ (value?.get(0) ?: 0))
                 val code = value?.get(0)
+                stringBuffer.append(" "+code.toString()+" ")
                 BaseApplication.getBaseApplication().setLogStr("VersionCode="+code.toString())
                 if(code != null){
                     viewModel.checkVersion(this@AboutDeviceActivity,code)
                 }
+                aboutDeviceVersionTv?.text =  stringBuffer.toString()
             }
 
             override fun onStrDataBack(vararg value: String?) {
-                aboutDeviceVersionTv?.text =  value[0]
+                stringBuffer.append(" "+value[0]+" ")
+                aboutDeviceVersionTv?.text =  stringBuffer.toString()
 
             }
 
