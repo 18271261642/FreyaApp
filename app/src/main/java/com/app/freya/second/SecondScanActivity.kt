@@ -210,7 +210,7 @@ class SecondScanActivity : AppActivity() {
                         }
                         if(!repeatList!!.contains(p0.address)){
                             p0.address?.let { repeatList?.add(it) }
-                            list?.add(BleBean(p0.device, p0.rssi,scanRecord,keyStr))
+                            list?.add(BleBean(p0.device, p0.rssi,keyStr,scanRecord))
                             list?.sortBy {
                                 Math.abs(it.rssi)
                             }

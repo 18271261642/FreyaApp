@@ -37,8 +37,10 @@ class KeyBoardViewModel : ViewModel() {
     //检查版本
     fun checkVersion(lifecycleOwner: LifecycleOwner, versionCode: Int) {
         val productNumber = MmkvUtils.getSaveProductNumber()
+        val url = BaseApplication.BASE_URL + "checkUpdate?firmwareVersionCode=$versionCode&productNumber="+productNumber
+        Timber.e("----url="+url)
         val stringRequest =
-            StringRequest(BaseApplication.BASE_URL + "checkUpdate?firmwareVersionCode=$versionCode&productNumber="+productNumber,
+            StringRequest(url,
                 { response ->
                     Timber.e("----response=" + response)
                     val jsonObject = JSONObject(response)
