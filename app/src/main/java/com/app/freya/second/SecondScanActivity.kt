@@ -181,12 +181,6 @@ class SecondScanActivity : AppActivity() {
                     return
                 if (repeatList?.contains(p0.address) == true)
                     return
-                //030543  && recordStr.toLowerCase(Locale.ROOT)
-                //                        .contains("c003")
-//                val isContains = recordStr.toLowerCase(Locale.ROOT).contains("03c0") ||
-//                        recordStr.toLowerCase(Locale.ROOT).contains("c003")  ||
-//                        recordStr.toLowerCase(Locale.ROOT).contains("c013") || recordStr.toLowerCase(Locale.ROOT).contains("13c0")
-
                 if(BikeUtils.isEmpty(recordStr)){
                     return
                 }
@@ -202,8 +196,10 @@ class SecondScanActivity : AppActivity() {
                     val keyStr = it.key
                     val tempK = Utils.changeStr(keyStr)
                     val scanRecord = recordStr.lowercase(Locale.ROOT)
+                    val front = scanRecord.contains(keyStr.lowercase(Locale.ROOT))
+                    val back = scanRecord.contains(tempK.lowercase(Locale.ROOT))
                     Timber.e("----转换="+tempK)
-                    if(scanRecord.contains(keyStr.lowercase(Locale.ROOT)) || scanRecord.contains(tempK.lowercase(Locale.ROOT))){
+                    if(front || back){
                         //判断少于40个设备就不添加了
                         if (repeatList?.size!! > 40) {
                             return
@@ -215,7 +211,6 @@ class SecondScanActivity : AppActivity() {
                                 Math.abs(it.rssi)
                             }
                         }
-
 
                         adapter?.notifyDataSetChanged()
                     }

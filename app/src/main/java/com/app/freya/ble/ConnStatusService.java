@@ -37,6 +37,9 @@ import com.inuker.bluetooth.library.search.response.SearchResponse;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Locale;
+import java.util.Map;
+
 import timber.log.Timber;
 
 
@@ -134,9 +137,12 @@ public class ConnStatusService extends Service {
                     return;
                 if(searchResult.getAddress().equals(mac)){
                     BleOperateManager.getInstance().stopScanDevice();
-//                    Timber.e("-------扫描到了，开始连接="+mac);
+                    Timber.e("-------扫描到了，开始连接="+mac+" "+(searchResult.getScanRecord() ==null));
+                    if(searchResult.getScanRecord() != null){
+                        Timber.e("-------ssss="+Utils.formatBtArrayToString(searchResult.getScanRecord()));
+                    }
                     isScanDevice = true;
-                    connDevice(bleName,mac);
+                    connDevice(bleName,mac,searchResult.getScanRecord());
 
                 }
             }
@@ -288,7 +294,7 @@ public class ConnStatusService extends Service {
 
 
     //连接
-    public void connDevice(String name,String bleMac){
+    public void connDevice(String name,String bleMac,byte[] scanRecord){
         setConnListener();
         BleOperateManager.getInstance().connYakDevice(name, bleMac, new ConnStatusListener() {
             @Override
@@ -298,7 +304,22 @@ public class ConnStatusService extends Service {
 
             @Override
             public void setNoticeStatus(int code) {
+                Map<String,String> typeMap = BaseApplication.supportDeviceTypeMap;
                 BaseApplication.getBaseApplication().setConnStatus(ConnStatus.CONNECTED);
+
+                if(scanRecord != null){
+                    String recordStr = Utils.formatBtArrayToString(scanRecord);
+                    for(Map.Entry<String,String> m : typeMap.entrySet()){
+                        String keyStr = m.getKey();
+                        String tempK = Utils.changeStr(keyStr);
+                        String scanRecord = recordStr.toLowerCase(Locale.CHINA);
+                        boolean front = scanRecord.contains(keyStr.toLowerCase(Locale.CHINA));
+                        boolean back = scanRecord.contains(tempK.toLowerCase(Locale.CHINA));
+                        MmkvUtils.saveProductNumberCode(keyStr);
+
+                    }
+                }
+
 //                Timber.e("-------连接成功="+code);
                 MmkvUtils.saveConnDeviceMac(bleMac);
                 MmkvUtils.saveConnDeviceName(name);

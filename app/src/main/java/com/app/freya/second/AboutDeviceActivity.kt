@@ -1,5 +1,6 @@
 package com.app.freya.second
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.BroadcastReceiver
@@ -93,6 +94,7 @@ class AboutDeviceActivity : AppActivity() {
         registerReceiver(broadcastReceiver,intentFilter)
     }
 
+
     override fun initData() {
         register()
 
@@ -112,8 +114,9 @@ class AboutDeviceActivity : AppActivity() {
         }
 
         val name = MmkvUtils.getConnDeviceName()
+        val productName = MmkvUtils.getSaveProductNumber()
         aboutDeviceNameTv?.text = name
-        aboutDeviceModelTv?.text = name
+        aboutDeviceModelTv?.text = name+" "+productName
 
         showVersion()
     }
