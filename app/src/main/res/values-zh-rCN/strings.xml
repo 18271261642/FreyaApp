@@ -2,6 +2,22 @@
     <string name="app_name">Freya</string>
 
 
+    <string name="string_about_device">关于设备</string>
+    <string name="string_model">型号</string>
+    <string name="string_version">版本</string>
+    <string name="string_device_upgrade">设备更新</string>
+    <string name="string_enter_website">访问官网: %1s</string>
+    <string name="string_device">设备</string>
+    <string name="string_battery_value">电池电量</string>
+    <string name="string_usage_time">使用时间</string>
+    <string name="string_function_no_complete">功能开发中，敬请期待..</string>
+    <string name="string_personalized_equipment">个性化设备</string>
+    <string name="string_memo">备忘录</string>
+    <string name="string_mine_device">我的设备</string>
+    <string name="string_notify_switch">消息提醒开关</string>
+    <string name="string_recycler">恢复出厂设置</string>
+    <string name="string_recycler_yes_or_not">是否恢复出厂设置?</string>
+    <string name="string_has_bind_account">已绑定的账号</string>
 
     <string name="string_evening_good">晚上好</string>
     <string name="string_afternoon_good">下午好</string>
@@ -38,6 +54,10 @@
     <string name="string_alarm_clock">闹钟</string>
     <string name="string_setting_screen_style">屏保样式</string>
     <string name="string_setting_note">备忘录</string>
+
+
+    //下方部分已翻译过
+
     <string name="string_no_device_added">当前暂无设备连接</string>
     <string name="string_add_device">添加设备</string>
     <string name="string_invalid_value">传入非法值!</string>
