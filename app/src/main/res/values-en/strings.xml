@@ -2,6 +2,23 @@
     <string name="app_name">Freya</string>
 
 
+    <string name="string_about_device">About</string>
+    <string name="string_model">Model</string>
+    <string name="string_version">Version</string>
+    <string name="string_device_upgrade">Upgrade</string>
+    <string name="string_enter_website">Website: %1s</string>
+    <string name="string_device">Device</string>
+    <string name="string_battery_value">Battery Power</string>
+    <string name="string_usage_time">Usage time</string>
+    <string name="string_function_no_complete">Under development</string>
+    <string name="string_personalized_equipment">Personalized Device</string>
+    <string name="string_memo">notepad</string>
+    <string name="string_mine_device">My Device</string>
+    <string name="string_notify_switch">Message Reminder</string>
+    <string name="string_recycler">Reset Device</string>
+    <string name="string_recycler_yes_or_not">Are you sure to reset your Device?</string>
+    <string name="string_has_bind_account">bound account</string>
+
     <string name="string_evening_good">Good evening</string>
     <string name="string_afternoon_good">Good afternoon</string>
     <string name="string_morning_good">Good morning</string>
@@ -33,10 +50,10 @@
     <string name="string_fast">Fast</string>
     <string name="string_slowest">Slowest</string>
     <string name="string_custom_speed">Custom speed</string>
-    <string name="string_clock_style">时钟样式</string>
-    <string name="string_alarm_clock">闹钟</string>
-    <string name="string_setting_screen_style">屏保样式</string>
-    <string name="string_setting_note">备忘录</string>
+    <string name="string_clock_style">clock style</string>
+    <string name="string_alarm_clock">Alarm</string>
+    <string name="string_setting_screen_style">screensaver style</string>
+    <string name="string_setting_note">notepad</string>
 
     <string name="string_no_device_added">No device connection</string>
     <string name="string_add_device">Add device</string>

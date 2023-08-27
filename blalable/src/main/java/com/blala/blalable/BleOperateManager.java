@@ -209,6 +209,9 @@ public class BleOperateManager {
                 //88 00 00 00 00 00 13 3e 00 02 c0 03   00 01 23   054373c2bd97ffffffffffff
                 Log.e(TAG, "------获取版本=" + Utils.formatBtArrayToString(data));
                 if (data.length > 19 && data[9] == 2) {
+                    String numberStr = String.format("%02x",data[10])+String.format("%02x",data[11]);
+
+
                     //版本
                     int oneStr = data[12] & 0xff;
                     int secondStr = data[13] & 0xff;
@@ -219,7 +222,7 @@ public class BleOperateManager {
                     int versionCode = Utils.getIntFromBytes((byte) 0x00,data[12],data[13],data[14]);
 
                     if (onCommBackDataListener != null) {
-                        onCommBackDataListener.onStrDataBack(version);
+                        onCommBackDataListener.onStrDataBack(version,numberStr,versionCode+"");
                         onCommBackDataListener.onIntDataBack(new int[]{versionCode});
                     }
 

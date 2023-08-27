@@ -1,5 +1,6 @@
 package com.app.freya.second
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.BroadcastReceiver
@@ -93,6 +94,7 @@ class AboutDeviceActivity : AppActivity() {
         registerReceiver(broadcastReceiver,intentFilter)
     }
 
+
     override fun initData() {
         register()
 
@@ -111,29 +113,39 @@ class AboutDeviceActivity : AppActivity() {
             }
         }
 
-        val name = MmkvUtils.getConnDeviceName()
-        aboutDeviceNameTv?.text = name
-        aboutDeviceModelTv?.text = name
+//        val name = MmkvUtils.getConnDeviceName()
+//        val productName = MmkvUtils.getSaveProductNumber()
+//        aboutDeviceNameTv?.text = name
+//        aboutDeviceModelTv?.text = name+" "+productName
 
         showVersion()
     }
 
 
+    val stringBuffer = StringBuilder()
     private fun showVersion(){
-
+        stringBuffer.delete(0,stringBuffer.length)
         BaseApplication.getBaseApplication().bleOperate.getDeviceVersionData(object :
             OnCommBackDataListener {
             override fun onIntDataBack(value: IntArray?) {
-                Timber.e("------版本好="+ (value?.get(0) ?: 0))
+                Timber.e("------版本好="+ (value?.get(0) ?: 0) )
                 val code = value?.get(0)
+                stringBuffer.append(" "+code.toString()+" ")
                 BaseApplication.getBaseApplication().setLogStr("VersionCode="+code.toString())
                 if(code != null){
-                    viewModel.checkVersion(this@AboutDeviceActivity,code)
+                  //  viewModel.checkVersion(this@AboutDeviceActivity,code)
                 }
+                aboutDeviceVersionTv?.text =  stringBuffer.toString()
             }
 
             override fun onStrDataBack(vararg value: String?) {
-                aboutDeviceVersionTv?.text =  value[0]
+                stringBuffer.append(" "+value[0]+" ")
+                aboutDeviceVersionTv?.text =  stringBuffer.toString()
+                val name = MmkvUtils.getConnDeviceName()
+                aboutDeviceModelTv?.text = name+" "+value[1]
+                if(value[1] != null && value[2] != null){
+                    viewModel.checkVersion(this@AboutDeviceActivity,value[2]!!.toInt(),value[1].toString())
+                }
 
             }
 
