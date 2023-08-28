@@ -2,6 +2,21 @@
     <string name="app_name">Freya</string>
 
 
+    <string name="string_app_new_version">App有新版本,是否更新?</string>
+    <string name="string_wechat">微信</string>
+    <string name="string_choose_delete_or_edit">请选择删除或编辑</string>
+    <string name="string_set_to_device">是否同步到设备?</string>
+    <string name="string_complete">完成</string>
+
+
+
+    <string name="string_unbind_alert">是否移除当前设备?</string>
+    <string name="string_device_name">设备名称</string>
+    <string name="string_about_app">关于掌上悟确</string>
+    <string name="string_battery">电量: %1s</string>
+    <string name="string_stay_tuned">敬请期待~</string>
+
+
     <string name="string_about_device">关于设备</string>
     <string name="string_model">型号</string>
     <string name="string_version">版本</string>
@@ -11,7 +26,7 @@
     <string name="string_battery_value">电池电量</string>
     <string name="string_usage_time">使用时间</string>
     <string name="string_function_no_complete">功能开发中，敬请期待..</string>
-    <string name="string_personalized_equipment">个性化设备</string>
+    <string name="string_personalized_equipment">个性化设置</string>
     <string name="string_memo">备忘录</string>
     <string name="string_mine_device">我的设备</string>
     <string name="string_notify_switch">消息提醒开关</string>

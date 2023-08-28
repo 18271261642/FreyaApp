@@ -45,7 +45,7 @@ class MenuDataFragment : TitleBarFragment<SecondHomeActivity>()
 
     override fun onFragmentResume(first: Boolean) {
         super.onFragmentResume(first)
-        homeTimeStateTv?.text = TimeUtils.getTimeByNow(attachActivity)+MmkvUtils.getConnDeviceName()
+        homeTimeStateTv?.text = TimeUtils.getTimeByNow(attachActivity)+" "+MmkvUtils.getConnDeviceName()
         //homeTempView?.setBatteryValue(88)
         BaseApplication.getBaseApplication().bleOperate.getDeviceSystemData(object : OnSystemDataListener{
             override fun onSysData(

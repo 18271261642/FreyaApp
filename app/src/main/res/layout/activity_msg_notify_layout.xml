@@ -13,7 +13,7 @@
         android:background="@color/transparent"
         app:leftIcon="@drawable/ic_white_left_back"
         app:lineVisible="false"
-        app:title="消息提醒开关"
+        app:title="@string/string_notify_switch"
         app:rightIcon="@drawable/ic_white_help_img"
         app:titleColor="@color/white" />
 
@@ -23,7 +23,7 @@
         android:layout_margin="@dimen/dp_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已绑定的账号"
+        android:text="@string/string_has_bind_account"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_12" />
 
@@ -52,7 +52,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="微信"
+           android:text="@string/string_wechat"
            android:textColor="@color/white"
            android:textSize="@dimen/sp_18"
            android:layout_margin="@dimen/dp_5"

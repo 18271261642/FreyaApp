@@ -106,7 +106,7 @@ class NotePadActivity : AppActivity() {
     private fun showSyncDialog(noteB : NoteBookBean){
         val dialog = DeleteDeviceDialog(this, com.bonlala.base.R.style.BaseDialogTheme)
         dialog.show()
-        dialog.setTitleTxt("是否同步到设备?")
+        dialog.setTitleTxt(resources.getString(R.string.string_set_to_device))
         dialog.setConfirmBgColor(Color.parseColor("#F86849"))
         dialog.setOnCommClickListener(object : OnCommItemClickListener{
             override fun onItemClick(position: Int) {
@@ -131,7 +131,7 @@ class NotePadActivity : AppActivity() {
     private fun showDeleteOrUpdate(noteB : NoteBookBean){
         val dialog = DeleteDeviceDialog(this, com.bonlala.base.R.style.BaseDialogTheme)
         dialog.show()
-        dialog.setTitleTxt("请选择删除或编辑?")
+        dialog.setTitleTxt(resources.getString(R.string.string_choose_delete_or_edit))
         dialog.setConfirmAndCancelTxt(resources.getString(R.string.string_edit), resources.getString(R.string.string_delete_txt))
         dialog.setCancelBgColor(Color.parseColor("#F86849"))
         dialog.setConfirmBgColor(Color.parseColor("#16AEA0"))

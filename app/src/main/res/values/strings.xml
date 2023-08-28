@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Freya</string>
 
+    <string name="string_app_new_version">App has a new version, is it updated?</string>
+    <string name="string_wechat">WeChat</string>
+    <string name="string_choose_delete_or_edit">Please select delete or edit</string>
+    <string name="string_set_to_device">Set to device?</string>
+    <string name="string_complete">OK</string>
+    <string name="string_unbind_alert">Whether to unbind the device?</string>
+    <string name="string_device_name">Device Name</string>
+    <string name="string_about_app">About App</string>
+    <string name="string_battery">Battery: %1s</string>
+    <string name="string_stay_tuned">Stay tuned~</string>
+
 
     <string name="string_about_device">About</string>
     <string name="string_model">Model</string>
@@ -8,16 +19,16 @@
     <string name="string_device_upgrade">Upgrade</string>
     <string name="string_enter_website">Website: %1s</string>
     <string name="string_device">Device</string>
-    <string name="string_battery_value">Battery Power</string>
+    <string name="string_battery_value">Battery</string>
     <string name="string_usage_time">Usage time</string>
     <string name="string_function_no_complete">Under development</string>
     <string name="string_personalized_equipment">Personalized Device</string>
-    <string name="string_memo">notepad</string>
+    <string name="string_memo">Notepad</string>
     <string name="string_mine_device">My Device</string>
     <string name="string_notify_switch">Message Reminder</string>
     <string name="string_recycler">Reset Device</string>
     <string name="string_recycler_yes_or_not">Are you sure to reset your Device?</string>
-    <string name="string_has_bind_account">bound account</string>
+    <string name="string_has_bind_account">Bound account</string>
 
     <string name="string_evening_good">Good evening</string>
     <string name="string_afternoon_good">Good afternoon</string>
@@ -53,7 +64,7 @@
     <string name="string_clock_style">clock style</string>
     <string name="string_alarm_clock">Alarm</string>
     <string name="string_setting_screen_style">screensaver style</string>
-    <string name="string_setting_note">notepad</string>
+    <string name="string_setting_note">Notepad</string>
 
     <string name="string_no_device_added">No device connection</string>
     <string name="string_add_device">Add device</string>

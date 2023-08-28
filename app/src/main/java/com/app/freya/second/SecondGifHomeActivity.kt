@@ -141,6 +141,8 @@ class SecondGifHomeActivity : AppActivity() {
 //        secondDefaultAnimationImgView?.setImageDrawable(circularBitmapDrawable)
         Glide.with(context).load(R.drawable.gif_preview).transform(MultiTransformation(CenterCrop(), CircleCrop())).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.gif_preview).into(secondDefaultAnimationImgView!!)
 
+
+        secondCusSpeedSettingBar?.rightText = "1"+resources.getString(R.string.string_minute_time)
     }
 
     override fun initData() {
@@ -163,6 +165,10 @@ class SecondGifHomeActivity : AppActivity() {
                 BaseApplication.getBaseApplication().bleOperate.setLocalKeyBoardDial()
             }
             R.id.secondGifCusLayout->{  //自定义
+                if(BaseApplication.getBaseApplication().connStatus != ConnStatus.CONNECTED){
+                    ToastUtils.show(resources.getString(R.string.string_device_not_connect))
+                    return
+                }
                 showPhotoDialog()
             }
             R.id.secondGifDormancyLayout->{ //自动锁定

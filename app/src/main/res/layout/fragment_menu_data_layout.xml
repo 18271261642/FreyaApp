@@ -32,20 +32,25 @@
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
 
+
+
             <TextView
                 android:id="@+id/homeTimeStateTv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintRight_toLeftOf="@+id/changeDeviceLayout"
                 android:text="早上好freya"
                 android:textColor="@color/white"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="@dimen/sp_20"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/homeHelloTv"/>
 
 
-
-
             <LinearLayout
+                android:id="@+id/changeDeviceLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/homeTimeStateTv"
@@ -63,7 +68,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="设备"
+                    android:text="@string/string_device"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_16"
                     />
@@ -99,7 +104,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textColor="#DDDDDD"
-                    android:text="功能开发中，敬请期待~"/>
+                    android:text="@string/string_function_no_complete"/>
 
             </com.hjq.shape.layout.ShapeLinearLayout>
         </FrameLayout>
