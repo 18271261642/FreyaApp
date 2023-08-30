@@ -16,6 +16,7 @@ import com.app.freya.ble.OnConnStateListener
 
 import com.app.freya.dialog.DeleteDeviceDialog
 import com.app.freya.dialog.UpgradeDialogView
+import com.app.freya.utils.BikeUtils
 import com.app.freya.utils.MmkvUtils
 import com.app.freya.viewmodel.KeyBoardViewModel
 import com.hjq.shape.layout.ShapeConstraintLayout
@@ -64,22 +65,34 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
         secondMenuDeviceConnStateTv= findViewById(R.id.secondMenuDeviceConnStateTv)
         deviceDeviceNameTv = findViewById(R.id.deviceDeviceNameTv)
         findViewById<ShapeTextView>(R.id.deviceNotifyTv).setOnClickListener {
+            if(BikeUtils.isEmpty(getMac())){
+                return@setOnClickListener
+            }
             startActivity(NotifyOpenActivity::class.java)
         }
 
         findViewById<ShapeTextView>(R.id.deviceUnBindTv).setOnClickListener {
+            if(BikeUtils.isEmpty(getMac())){
+                return@setOnClickListener
+            }
             showUnBindDialog(true)
         }
         //关于设备
         findViewById<ShapeTextView>(R.id.deviceAboutTv).setOnClickListener {
+            if(BikeUtils.isEmpty(getMac())){
+                return@setOnClickListener
+            }
             startActivity(AboutDeviceActivity::class.java)
         }
         //恢复出厂设置
         findViewById<ShapeTextView>(R.id.menuDeviceRecyclerLayout).setOnClickListener {
+            if(BikeUtils.isEmpty(getMac())){
+                return@setOnClickListener
+            }
             showUnBindDialog(false)
         }
 
-
+        menuBatteryTv?.text = String.format(resources.getString(R.string.string_battery),"--")
 
 
         secondMenuDeviceConnStateTv?.setOnClickListener {
@@ -90,6 +103,13 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
             attachActivity.retryConn()
         }
     }
+
+
+
+    private fun getMac() : String{
+        return MmkvUtils.getConnDeviceMac()
+    }
+
 
     override fun initData() {
 

@@ -3,6 +3,8 @@ package com.app.freya.second
 import android.view.View
 import com.app.freya.R
 import com.app.freya.action.TitleBarFragment
+import com.app.freya.utils.BikeUtils
+import com.app.freya.utils.MmkvUtils
 import com.app.freya.widget.CheckButtonView
 
 
@@ -49,14 +51,27 @@ class MenuSettingFragment : TitleBarFragment<SecondHomeActivity>() {
 
         when(id){
             R.id.settingNoteLayout->{
+                if(BikeUtils.isEmpty(getMac())){
+                    return
+                }
                 startActivity(NotePadActivity::class.java)
             }
             R.id.settingAlarmLayout->{
+                if(BikeUtils.isEmpty(getMac())){
+                    return
+                }
                 startActivity(AlarmListActivity::class.java)
             }
             R.id.secondUploadGifView->{ //上传动画
+                if(BikeUtils.isEmpty(getMac())){
+                   return
+                }
                 startActivity(SecondGifHomeActivity::class.java)
             }
         }
     }
+    private fun getMac() : String{
+        return MmkvUtils.getConnDeviceMac()
+    }
+
 }
