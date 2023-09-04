@@ -5,6 +5,8 @@
     app:shape_startColor="#343348"
     app:shape_endColor="#191C24"
     app:shape_angle="270"
+    app:shape_topLeftRadius="@dimen/dp_10"
+    app:shape_topRightRadius="@dimen/dp_10"
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
@@ -17,6 +19,8 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sp_20"
         android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_15"
         android:gravity="center"/>
 
     <com.hjq.shape.view.ShapeTextView

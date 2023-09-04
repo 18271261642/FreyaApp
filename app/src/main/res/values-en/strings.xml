@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Freya</string>
 
+    <string name="string_to_conn_prompt">此功能需要连接设备后使用，是否现在连接?</string>
+    <string name="string_no_data">No Data</string>
     <string name="string_app_new_version">App has a new version, is it updated?</string>
     <string name="string_wechat">WeChat</string>
     <string name="string_choose_delete_or_edit">Please select delete or edit</string>

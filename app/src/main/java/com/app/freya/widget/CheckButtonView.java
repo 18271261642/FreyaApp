@@ -2,6 +2,7 @@ package com.app.freya.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.app.freya.R;
 import com.bonlala.widget.view.SwitchButton;
+import com.hjq.shape.layout.ShapeLinearLayout;
 
 /**
  * Created by Admin
@@ -40,6 +42,9 @@ public class CheckButtonView extends LinearLayout {
     /**设置左侧的文字描述**/
     private String leftTxt;
 
+
+    /**背景**/
+    private ShapeLinearLayout checkButtonViewBgLayout;
 
     public CheckButtonView(Context context) {
         super(context);
@@ -78,6 +83,8 @@ public class CheckButtonView extends LinearLayout {
         switchButton = view.findViewById(R.id.rightCheckBtn);
         lefImgView = view.findViewById(R.id.leftImgView);
         rightImg = view.findViewById(R.id.rightBackImgView);
+        checkButtonViewBgLayout = view.findViewById(R.id.checkButtonViewBgLayout);
+
 
         lefImgView.setVisibility(isShowLeftImg ? View.VISIBLE : View.GONE);
         if(leftImgResource !=0){
@@ -95,6 +102,16 @@ public class CheckButtonView extends LinearLayout {
         rightImg.setVisibility(isShowRightImg ? View.VISIBLE : View.GONE);
 
     }
+
+
+    //是否正常状态
+    public void setIsNormal(boolean isNormal){
+        if(!isNormal){
+            checkButtonViewBgLayout.getShapeDrawableBuilder().setSolidColor(Color.parseColor("#20242E")).intoBackground();
+            leftTv.setTextColor(Color.parseColor("#80FFFFFF"));
+        }
+    }
+
 
 
     //设置左侧标题

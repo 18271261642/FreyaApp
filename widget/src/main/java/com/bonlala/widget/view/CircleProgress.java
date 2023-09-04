@@ -104,6 +104,10 @@ public class CircleProgress extends View {
     private boolean isNeedGradient = true;
 
 
+    //是否是无数值，无数组时不显示进度值，显示进度条，中间值显示无数据
+    private boolean isShowNoData = false;
+
+
     private final DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
     public CircleProgress(Context context, AttributeSet attrs) {
@@ -296,7 +300,9 @@ public class CircleProgress extends View {
         // float x = mCenterPoint.x - textWidth / 2;
         float end = getValue();
 
-        canvas.drawText(decimalFormat.format(end), mCenterPoint.x, mValueOffset-MiscUtil.dipToPx(getContext(),5f), mValuePaint);
+        mValuePaint.setTextSize(isShowNoData ? MiscUtil.dipToPx(mContext,20F): mValueSize);
+
+        canvas.drawText(isShowNoData ? "暂无数据" : decimalFormat.format(end), mCenterPoint.x, mValueOffset-MiscUtil.dipToPx(getContext(),5f), mValuePaint);
 
        // canvas.drawText(String.format(mPrecisionFormat, mValue), mCenterPoint.x, mValueOffset, mValuePaint);
 
@@ -517,5 +523,14 @@ public class CircleProgress extends View {
 
     public void setmGradientColors(int[] mGradientColors) {
         this.mGradientColors = mGradientColors;
+    }
+
+
+    public boolean isShowNoData() {
+        return isShowNoData;
+    }
+
+    public void setShowNoData(boolean showNoData) {
+        isShowNoData = showNoData;
     }
 }

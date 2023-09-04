@@ -5,6 +5,7 @@
     android:padding="@dimen/dp_10"
     android:orientation="horizontal"
     app:shape_startColor="#343348"
+    android:id="@+id/checkButtonViewBgLayout"
     app:shape_endColor="#262D38"
     app:shape_solidPressedColor="#80262D38"
     app:shape_radius="@dimen/dp_15"

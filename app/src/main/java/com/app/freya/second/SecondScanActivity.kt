@@ -46,6 +46,7 @@ class SecondScanActivity : AppActivity() {
             super.handleMessage(msg)
             if (msg.what == 0x00) {
                 BaseApplication.getBaseApplication().bleOperate.stopScanDevice()
+                BaseApplication.getBaseApplication().bleOperate.disConnYakDevice()
             }
         }
     }
@@ -120,6 +121,8 @@ class SecondScanActivity : AppActivity() {
             return
         }
 
+
+
         if (isReconn) {
             val mac = MmkvUtils.getConnDeviceMac()
             if (BikeUtils.isEmpty(mac))
@@ -142,6 +145,9 @@ class SecondScanActivity : AppActivity() {
             if (bean != null) {
                 showDialog("连接中..")
                 handlers.sendEmptyMessageDelayed(0x00, 500)
+
+
+
                 service.connDeviceBack(
                     bean.bluetoothDevice.name, bean.bluetoothDevice.address
                 ) { mac, status ->

@@ -159,9 +159,10 @@ class SecondHomeActivity : AppActivity() {
         //是否有连接过
         val isMac = MmkvUtils.getConnDeviceMac()
         Timber.e("-----isMac=" + isMac)
-        scanHolderLayout?.visibility = if (BikeUtils.isEmpty(isMac)) View.VISIBLE else View.GONE
+       // scanHolderLayout?.visibility = if (BikeUtils.isEmpty(isMac)) View.VISIBLE else View.GONE
+        scanHolderLayout?.visibility =  View.GONE
 
-        onStateListener?.onItemClick(0x00)
+       // onStateListener?.onItemClick(0x00)
     }
 
 

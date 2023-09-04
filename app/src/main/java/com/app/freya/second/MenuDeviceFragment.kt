@@ -5,12 +5,14 @@ import android.graphics.Color
 import android.net.Uri
 import android.util.DisplayMetrics
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import com.app.freya.BaseApplication
 import com.app.freya.R
 import com.app.freya.action.TitleBarFragment
+import com.app.freya.adapter.OnCommItemClickListener
 import com.app.freya.ble.ConnStatus
 import com.app.freya.ble.OnConnStateListener
 
@@ -44,6 +46,13 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     //电量
     private var menuBatteryTv : TextView ?= null
 
+    //手机日程同步
+    private var menuScheduleTv : ShapeTextView ?= null
+    //关于设备
+    private var deviceAboutTv : ShapeTextView ?= null
+    //恢复出厂设置
+    private var menuDeviceRecyclerLayout : ShapeTextView ?= null
+
 
 
 
@@ -59,27 +68,31 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     }
 
     override fun initView() {
+        menuDeviceRecyclerLayout = findViewById(R.id.menuDeviceRecyclerLayout)
+        deviceAboutTv= findViewById(R.id.deviceAboutTv)
+        menuScheduleTv= findViewById(R.id.menuScheduleTv)
         menuBatteryTv = findViewById(R.id.menuBatteryTv)
         menuDeviceAboutAppVersionTv = findViewById(R.id.menuDeviceAboutAppVersionTv)
         menuDeviceAboutAppLayout = findViewById(R.id.menuDeviceAboutAppLayout)
         secondMenuDeviceConnStateTv= findViewById(R.id.secondMenuDeviceConnStateTv)
         deviceDeviceNameTv = findViewById(R.id.deviceDeviceNameTv)
         findViewById<ShapeTextView>(R.id.deviceNotifyTv).setOnClickListener {
-            if(BikeUtils.isEmpty(getMac())){
-                return@setOnClickListener
-            }
+//            if(BikeUtils.isEmpty(getMac())){
+//                return@setOnClickListener
+//            }
             startActivity(NotifyOpenActivity::class.java)
         }
 
         findViewById<ShapeTextView>(R.id.deviceUnBindTv).setOnClickListener {
-            if(BikeUtils.isEmpty(getMac())){
-                return@setOnClickListener
-            }
+//            if(BikeUtils.isEmpty(getMac())){
+//                return@setOnClickListener
+//            }
             showUnBindDialog(true)
         }
         //关于设备
-        findViewById<ShapeTextView>(R.id.deviceAboutTv).setOnClickListener {
+        deviceAboutTv?.setOnClickListener {
             if(BikeUtils.isEmpty(getMac())){
+                showConnDialog()
                 return@setOnClickListener
             }
             startActivity(AboutDeviceActivity::class.java)
@@ -94,6 +107,14 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
 
         menuBatteryTv?.text = String.format(resources.getString(R.string.string_battery),"--")
 
+        //手机日程同步
+        menuScheduleTv?.setOnClickListener {
+            if(BikeUtils.isEmpty(getMac()))
+            {
+                showConnDialog()
+                return@setOnClickListener
+            }
+        }
 
         secondMenuDeviceConnStateTv?.setOnClickListener {
             val connState = BaseApplication.getBaseApplication().connStatus
@@ -162,16 +183,28 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     }
 
     private fun showConnState(){
-        deviceDeviceNameTv?.text = MmkvUtils.getConnDeviceName()
-        val isConnStatus = BaseApplication.getBaseApplication().connStatus
-        secondMenuDeviceConnStateTv?.text =  if(isConnStatus == ConnStatus.CONNECTED) resources.getString(R.string.string_connected) else (if( isConnStatus == ConnStatus.CONNECTING) resources.getString(R.string.string_connecting) else resources.getString(R.string.string_retry_conn))
-        if(isConnStatus == ConnStatus.CONNECTED){
-            getBattery()
+        val bleName =  MmkvUtils.getConnDeviceName()
+        deviceDeviceNameTv?.text = if(BikeUtils.isEmpty(bleName)) "未连接设备" else bleName
+        if(BikeUtils.isEmpty(bleName)){
+            secondMenuDeviceConnStateTv?.text = "未连接"
+            deviceAboutTv!!.setBackgroundResource(R.drawable.no_conn_shape)
+            menuScheduleTv?.setBackgroundResource(R.drawable.no_conn_shape)
+            menuDeviceRecyclerLayout?.visibility = View.GONE
         }else{
-            menuBatteryTv?.text =  String.format(resources.getString(R.string.string_battery),"--")
+            val isConnStatus = BaseApplication.getBaseApplication().connStatus
+            secondMenuDeviceConnStateTv?.text =  if(isConnStatus == ConnStatus.CONNECTED) resources.getString(R.string.string_connected) else (if( isConnStatus == ConnStatus.CONNECTING) resources.getString(R.string.string_connecting) else resources.getString(R.string.string_retry_conn))
+            if(isConnStatus == ConnStatus.CONNECTED){
+                deviceAboutTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
+                menuScheduleTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
+                menuDeviceRecyclerLayout?.visibility = View.VISIBLE
+                getBattery()
+            }else{
+                menuDeviceRecyclerLayout?.visibility = View.GONE
+                menuBatteryTv?.text =  String.format(resources.getString(R.string.string_battery),"--")
+            }
+
         }
-
-
+      //  deviceAboutTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
     }
 
 
@@ -233,5 +266,30 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
             }
         }
 
+    }
+
+
+    //提示请连接的dialog
+    private fun showConnDialog(){
+        val dialog = DeleteDeviceDialog(attachActivity, com.bonlala.base.R.style.BaseDialogTheme)
+        dialog.show()
+        dialog.setTitleTxt(resources.getString(R.string.string_to_conn_prompt))
+        dialog.setOnCommClickListener(object : OnCommItemClickListener {
+            override fun onItemClick(position: Int) {
+                dialog.dismiss()
+                if(position == 0x01){   //确定
+                    startActivity(SecondScanActivity::class.java)
+                }
+            }
+
+        })
+        val window = dialog.window
+        val windowLayout = window?.attributes
+        val metrics2: DisplayMetrics = resources.displayMetrics
+        val widthW: Int = metrics2.widthPixels
+
+        windowLayout?.width = widthW
+        windowLayout?.gravity = Gravity.BOTTOM
+        window?.attributes = windowLayout
     }
 }

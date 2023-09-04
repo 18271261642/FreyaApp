@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Freya</string>
 
+    <string name="string_to_conn_prompt">此功能需要连接设备后使用，是否现在连接?</string>
+    <string name="string_no_data">No Data</string>
     <string name="string_app_new_version">App has a new version, is it updated?</string>
     <string name="string_wechat">WeChat</string>
     <string name="string_choose_delete_or_edit">Please select delete or edit</string>
@@ -61,7 +63,7 @@
     <string name="string_fast">Fast</string>
     <string name="string_slowest">Slowest</string>
     <string name="string_custom_speed">Custom speed</string>
-    <string name="string_clock_style">clock style</string>
+    <string name="string_clock_style">Clock style</string>
     <string name="string_alarm_clock">Alarm</string>
     <string name="string_setting_screen_style">screensaver style</string>
     <string name="string_setting_note">Notepad</string>

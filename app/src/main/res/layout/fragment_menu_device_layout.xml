@@ -59,7 +59,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginBottom="@dimen/dp_10"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:orientation="vertical">
 
 
@@ -74,7 +74,7 @@
                         android:id="@+id/deviceDeviceNameTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="freya"
+                        android:text="未连接设备"
                         android:textColor="#fffd6a4a"
                         android:textSize="@dimen/sp_25" />
                 </LinearLayout>
@@ -102,7 +102,7 @@
                         android:id="@+id/secondMenuDeviceConnStateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/string_click_bind"
+                        android:text="未连接"
                         android:padding="@dimen/dp_0_5"
                         android:textColor="#ffffffff"
                         android:textSize="@dimen/sp_16" />
@@ -132,6 +132,7 @@
 
 
             <com.hjq.shape.view.ShapeTextView
+                android:id="@+id/menuScheduleTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
@@ -140,7 +141,6 @@
                 android:paddingStart="@dimen/dp_20"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:visibility="gone"
                 android:text="手机日程同步"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_18"

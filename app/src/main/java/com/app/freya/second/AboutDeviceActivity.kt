@@ -46,6 +46,8 @@ class AboutDeviceActivity : AppActivity() {
     private var aboutDeviceVersionTv : TextView ?= null
 
     private var aboutEnjoyTv : TextView ?= null
+    private var aboutDeviceMacTv : TextView ?= null
+
 
 
 
@@ -77,6 +79,7 @@ class AboutDeviceActivity : AppActivity() {
 
 
     override fun initView() {
+        aboutDeviceMacTv = findViewById(R.id.aboutDeviceMacTv)
         aboutEnjoyTv = findViewById(R.id.aboutEnjoyTv)
         aboutDeviceNameTv = findViewById(R.id.aboutDeviceNameTv)
         aboutDeviceModelTv = findViewById(R.id.aboutDeviceModelTv)
@@ -88,6 +91,8 @@ class AboutDeviceActivity : AppActivity() {
 
 
         aboutEnjoyTv?.setText(String.format(resources.getString(R.string.string_enter_website),"https://wuquestudio.cn"))
+
+        aboutDeviceMacTv?.text = MmkvUtils.getConnDeviceMac()
     }
 
 

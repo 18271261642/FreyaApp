@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hjq.shape.view.ShapeTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:shape_radius="@dimen/dp_15"
+    android:textColor="@color/white"
+    android:textSize="@dimen/sp_16"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:id="@+id/itemEditAlarmWeekTv"
+    android:text="周一"
+    android:padding="@dimen/dp_3"
+    android:layout_height="wrap_content">
+
+</com.hjq.shape.view.ShapeTextView>

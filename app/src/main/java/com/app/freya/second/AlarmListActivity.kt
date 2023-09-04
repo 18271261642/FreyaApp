@@ -39,10 +39,11 @@ class AlarmListActivity : AppActivity(){
       val windowLayout = window?.attributes
       val metrics2: DisplayMetrics = resources.displayMetrics
       val widthW: Int = metrics2.widthPixels
-      windowLayout?.height = metrics2.heightPixels
+      windowLayout?.height = (metrics2.heightPixels )
       windowLayout?.width = widthW
       windowLayout?.gravity = Gravity.BOTTOM
-      windowLayout?.verticalMargin = 30F
+
+
       window?.attributes = windowLayout
   }
 }

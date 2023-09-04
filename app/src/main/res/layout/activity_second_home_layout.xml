@@ -28,7 +28,7 @@
     <LinearLayout
         android:id="@+id/scanHolderLayout"
         android:layout_width="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_height="0dp"
         android:background="@color/second_theme_color"
         android:gravity="center"

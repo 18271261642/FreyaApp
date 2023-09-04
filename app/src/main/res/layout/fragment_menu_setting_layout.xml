@@ -65,10 +65,10 @@
 
 
             <com.app.freya.widget.CheckButtonView
+                android:id="@+id/screenStyleButtonView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
-                android:visibility="gone"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 app:right_back_img="true"
@@ -83,19 +83,18 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 app:right_back_img="true"
-                android:visibility="gone"
                 app:right_image="@mipmap/ic_setting_alarm_img"
                 app:left_txt_name="@string/string_alarm_clock"/>
 
 
             <com.app.freya.widget.CheckButtonView
+                android:id="@+id/clockStyleButtonView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 app:right_back_img="true"
-                android:visibility="gone"
                 app:right_image="@mipmap/ic_setting_clock_style_img"
                 app:left_txt_name="@string/string_clock_style"/>
 
