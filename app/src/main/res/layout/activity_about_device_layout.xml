@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleColor="@color/white"
-        app:title="关于设备"
+        app:title="@string/string_about_device"
         app:leftIcon="@drawable/ic_white_left_back"
         android:background="@color/transparent"
         app:lineVisible="false"/>
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="名称"
+            android:text="@string/string_name"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_18"
             android:padding="@dimen/dp_10"
@@ -81,7 +81,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="型号"
+            android:text="@string/string_model"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_18"
             android:padding="@dimen/dp_10"
@@ -131,7 +131,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="版本"
+            android:text="@string/string_version"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_18"
             android:padding="@dimen/dp_10"
@@ -171,7 +171,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设备更新"
+            android:text="@string/string_device_upgrade"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_18"
             android:padding="@dimen/dp_10"
@@ -212,12 +212,14 @@
 
 
         <TextView
+            android:id="@+id/aboutEnjoyTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/dp_10"
+            android:autoLink="web"
             android:text="访问官网: https://wuquestudio.cn"/>
     </LinearLayout>
 

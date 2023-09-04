@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="默认动画"/>
+                android:text="@string/string_default_anim"/>
 
         </LinearLayout>
 
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="自定义上传"/>
+                android:text="@string/string_selector_cus"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -98,7 +98,7 @@
         <com.bonlala.widget.layout.SettingBar
             android:id="@+id/secondGifDormancyBar"
             app:bar_leftTextColor="@color/white"
-            app:bar_leftText="自动锁定"
+            app:bar_leftText="@string/string_auto_lock"
             app:bar_lineVisible="false"
             app:bar_rightTextColor="@color/white"
             app:bar_rightText="1分钟"
@@ -128,7 +128,7 @@
         <com.bonlala.widget.layout.SettingBar
             android:id="@+id/secondCusSpeedSettingBar"
             app:bar_leftTextColor="@color/white"
-            app:bar_leftText="自定义速度"
+            app:bar_leftText="@string/string_speed_adjust"
             app:bar_lineVisible="false"
             app:bar_rightTextColor="@color/white"
             app:bar_rightText="1分钟"

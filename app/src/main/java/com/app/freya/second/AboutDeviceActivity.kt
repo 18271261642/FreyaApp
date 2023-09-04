@@ -45,6 +45,9 @@ class AboutDeviceActivity : AppActivity() {
     //版本
     private var aboutDeviceVersionTv : TextView ?= null
 
+    private var aboutEnjoyTv : TextView ?= null
+
+
 
     private val handlers : Handler = object : Handler(Looper.getMainLooper()){
         override fun handleMessage(msg: Message) {
@@ -74,6 +77,7 @@ class AboutDeviceActivity : AppActivity() {
 
 
     override fun initView() {
+        aboutEnjoyTv = findViewById(R.id.aboutEnjoyTv)
         aboutDeviceNameTv = findViewById(R.id.aboutDeviceNameTv)
         aboutDeviceModelTv = findViewById(R.id.aboutDeviceModelTv)
         aboutDeviceVersionTv = findViewById(R.id.aboutDeviceVersionTv)
@@ -82,6 +86,8 @@ class AboutDeviceActivity : AppActivity() {
             showVersion()
         }
 
+
+        aboutEnjoyTv?.setText(String.format(resources.getString(R.string.string_enter_website),"https://wuquestudio.cn"))
     }
 
 
@@ -195,6 +201,7 @@ class AboutDeviceActivity : AppActivity() {
         if(!upgradeDialogView!!.isShowing){
             upgradeDialogView?.show()
         }
+        upgradeDialogView?.setContentTxt(resources.getString(R.string.string_has_new_ota))
         upgradeDialogView?.setOnDialogClickListener { position ->
             upgradeDialogView?.dismiss()
             if (position == 0x01) {

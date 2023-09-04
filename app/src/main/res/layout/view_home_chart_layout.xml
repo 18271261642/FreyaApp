@@ -59,7 +59,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#DDDDDD"
-                        android:text="功能开发中，敬请期待~"/>
+                        android:text="@string/string_function_no_complete"/>
 
                 </com.hjq.shape.layout.ShapeLinearLayout>
 
@@ -92,7 +92,7 @@
                     app:bgArcColor="#33F75A37"
                     app:bgArcWidth="15dp"
                     app:arcWidth="15dp"
-                    app:unit="电池电量"
+                    app:unit="@string/string_battery_value"
                     app:valueSize="35sp"
                     app:unitSize="@dimen/sp_15"
                     app:valueColor="@color/white"
@@ -253,7 +253,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textColor="#DDDDDD"
-                    android:text="敬请期待~"/>
+                    android:text="@string/string_stay_tuned"/>
 
             </com.hjq.shape.layout.ShapeLinearLayout>
 

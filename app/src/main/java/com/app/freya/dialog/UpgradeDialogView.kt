@@ -2,6 +2,7 @@ package com.app.freya.dialog
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialog
 import com.app.freya.R
 import com.app.freya.adapter.OnCommItemClickListener
@@ -18,6 +19,7 @@ class UpgradeDialogView : AppCompatDialog {
     private var dialogUpgradeConfirmTv : ShapeTextView ?= null
 
 
+    private var upgradeContentTv : TextView ?= null
 
     private var onClick : OnCommItemClickListener?= null
 
@@ -39,6 +41,7 @@ class UpgradeDialogView : AppCompatDialog {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_show_upgrade_layout)
 
+        upgradeContentTv = findViewById(R.id.upgradeContentTv)
         dialogUpgradeCancelTv = findViewById(R.id.dialogUpgradeCancelTv)
         dialogUpgradeConfirmTv = findViewById(R.id.dialogUpgradeConfirmTv)
 
@@ -50,5 +53,10 @@ class UpgradeDialogView : AppCompatDialog {
             onClick?.onItemClick(0x01)
         }
 
+    }
+
+
+    fun setContentTxt(txt : String){
+        upgradeContentTv?.text = txt
     }
 }

@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="个性化设置"
+        android:text="@string/string_personalized_equipment"
         android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_0_5"
         android:textColor="@color/white"

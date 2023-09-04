@@ -34,14 +34,14 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_18"
-            android:text="备忘录"/>
+            android:text="@string/string_memo"/>
 
 
         <TextView
             android:id="@+id/secondEditSubmitTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="完成"
+            android:text="@string/string_complete"
             android:textColor="#fffd6a4a"
             android:textSize="18sp"
             android:layout_margin="@dimen/dp_10"

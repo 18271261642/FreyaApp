@@ -9,6 +9,7 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.app.freya.BaseApplication
+import com.app.freya.bean.AppVersionBean
 import com.app.freya.bean.OtaBean
 import com.app.freya.utils.BikeUtils
 import com.app.freya.utils.GsonUtils
@@ -30,6 +31,8 @@ class KeyBoardViewModel : ViewModel() {
     //升级的内容
     var firmwareData = SingleLiveEvent<OtaBean?>()
 
+    //app升级
+    var appVersionData = SingleLiveEvent<AppVersionBean?>()
 
     //log
     var logData = SingleLiveEvent<String>()
@@ -145,6 +148,66 @@ class KeyBoardViewModel : ViewModel() {
 
 
     }
+
+
+
+
+
+    //检查App版本
+    fun checkAppVersion(versionCode: Int) {
+
+        val url = BaseApplication.BASE_URL + "checkUpdate?appVersion=$versionCode&appType=1"
+        Timber.e("----url="+url)
+        val stringRequest =
+            StringRequest(url,
+                { response ->
+                    Timber.e("----response=" + response)
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getInt("code") == 200) {
+                        val data = jsonObject.getJSONObject("data")
+                        val appVo = data.getString("appVo")
+
+                        if (!BikeUtils.isEmpty(appVo)) {
+                            var bean = GsonUtils.getGsonObject<AppVersionBean>(appVo)
+                            if (bean == null) {
+                                bean = AppVersionBean()
+                                bean.isError = true
+                                bean.setErrorMsg("back null")
+                            } else {
+                                bean.isError = false
+                            }
+                            Timber.e("------bean=" + bean.toString())
+                            appVersionData.postValue(bean)
+                        } else {
+                            val bean = AppVersionBean()
+                            bean.isError = true
+                            bean.setErrorMsg("back null")
+                            appVersionData.postValue(bean)
+                        }
+                    }
+                }
+            ) { error ->
+                Timber.e("----ErrorListener=" + error?.message)
+                val bean = AppVersionBean()
+                bean.isError = true
+                bean.setErrorMsg(error?.message + "\n" + error?.printStackTrace())
+                appVersionData.postValue(bean)
+
+                val errorStr = "型号:"+Build.MODEL+" android版本："+Build.VERSION.SDK_INT+"\n"+"error="+error?.message
+                CrashReport.postCatchedException(CusException(errorStr))
+
+            }
+        stringRequest.retryPolicy = DefaultRetryPolicy(
+            TimeUnit.SECONDS.toMillis(20)
+                .toInt(),  //After the set time elapses the request will timeout
+            0,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        )
+        BaseApplication.getBaseApplication().requestQueue.add(stringRequest)
+
+
+    }
+
 
 
 
