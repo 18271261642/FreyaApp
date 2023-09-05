@@ -182,6 +182,12 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
         showConnState()
     }
 
+
+    override fun onActivityResume() {
+        super.onActivityResume()
+        showConnState()
+    }
+
     private fun showConnState(){
         val bleName =  MmkvUtils.getConnDeviceName()
         deviceDeviceNameTv?.text = if(BikeUtils.isEmpty(bleName)) "未连接设备" else bleName
