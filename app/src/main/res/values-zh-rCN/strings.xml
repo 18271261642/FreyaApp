@@ -21,7 +21,7 @@
     <string name="string_about_device">关于设备</string>
     <string name="string_model">型号</string>
     <string name="string_version">版本</string>
-    <string name="string_device_upgrade">设备更新</string>
+    <string name="string_device_upgrade">固件备更新</string>
     <string name="string_enter_website">访问官网: %1s</string>
     <string name="string_device">设备</string>
     <string name="string_battery_value">电池电量</string>

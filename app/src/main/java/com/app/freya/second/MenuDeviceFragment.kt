@@ -54,6 +54,7 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     private var menuDeviceRecyclerLayout : ShapeTextView ?= null
 
 
+    private var deviceUnBindTv : ShapeTextView ?= null
 
 
     companion object{
@@ -68,6 +69,7 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     }
 
     override fun initView() {
+        deviceUnBindTv = findViewById(R.id.deviceUnBindTv)
         menuDeviceRecyclerLayout = findViewById(R.id.menuDeviceRecyclerLayout)
         deviceAboutTv= findViewById(R.id.deviceAboutTv)
         menuScheduleTv= findViewById(R.id.menuScheduleTv)
@@ -152,6 +154,7 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
                 secondMenuDeviceConnStateTv?.text =  if(connStatus == ConnStatus.CONNECTED) resources.getString(R.string.string_connected) else (if( connStatus == ConnStatus.CONNECTING) resources.getString(R.string.string_connecting) else resources.getString(R.string.string_retry_conn))
                 if(connStatus == ConnStatus.CONNECTED){
                     getBattery()
+                    showConnState()
                 }else{
                     menuBatteryTv?.text = String.format(resources.getString(R.string.string_battery),"--")
                 }
@@ -191,18 +194,23 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
     private fun showConnState(){
         val bleName =  MmkvUtils.getConnDeviceName()
         deviceDeviceNameTv?.text = if(BikeUtils.isEmpty(bleName)) "未连接设备" else bleName
+
+
         if(BikeUtils.isEmpty(bleName)){
+            deviceUnBindTv?.visibility = View.INVISIBLE
             secondMenuDeviceConnStateTv?.text = "未连接"
             deviceAboutTv!!.setBackgroundResource(R.drawable.no_conn_shape)
             menuScheduleTv?.setBackgroundResource(R.drawable.no_conn_shape)
             menuDeviceRecyclerLayout?.visibility = View.GONE
         }else{
+            deviceUnBindTv?.visibility = View.VISIBLE
             val isConnStatus = BaseApplication.getBaseApplication().connStatus
             secondMenuDeviceConnStateTv?.text =  if(isConnStatus == ConnStatus.CONNECTED) resources.getString(R.string.string_connected) else (if( isConnStatus == ConnStatus.CONNECTING) resources.getString(R.string.string_connecting) else resources.getString(R.string.string_retry_conn))
             if(isConnStatus == ConnStatus.CONNECTED){
                 deviceAboutTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
                 menuScheduleTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
-                menuDeviceRecyclerLayout?.visibility = View.VISIBLE
+                menuDeviceRecyclerLayout?.visibility = View.GONE
+                menuScheduleTv?.visibility = View.GONE
                 getBattery()
             }else{
                 menuDeviceRecyclerLayout?.visibility = View.GONE
@@ -236,10 +244,12 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
             if (position == 0x01) {   //解绑
                 if(isUnBind){
 
+                    BaseApplication.getBaseApplication().connStatus = ConnStatus.NOT_CONNECTED
                     BaseApplication.getBaseApplication().bleOperate.disConnYakDevice()
                     MmkvUtils.saveConnDeviceName("")
                     MmkvUtils.saveConnDeviceMac("")
                     attachActivity.showIsAddDevice()
+                    showConnState()
                 }else{
                     BaseApplication.getBaseApplication().bleOperate.setRecyclerDevice()
 

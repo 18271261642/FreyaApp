@@ -180,6 +180,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_18"
                 app:shape_endColor="#262D38"
+                android:visibility="gone"
                 app:shape_radius="@dimen/dp_20"
                 app:shape_solidPressedColor="#80262D38"
                 app:shape_startColor="#343348" />

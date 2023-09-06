@@ -8,19 +8,23 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.DisplayMetrics
+import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.app.freya.BaseApplication
 import com.app.freya.R
 import com.app.freya.action.AppActivity
 import com.app.freya.ble.ConnStatus
 import com.app.freya.ble.ota.OtaDialogView
+import com.app.freya.dialog.DeleteDeviceDialog
 import com.app.freya.dialog.UpgradeDialogView
 import com.app.freya.utils.MmkvUtils
 import com.app.freya.viewmodel.KeyBoardViewModel
@@ -48,6 +52,9 @@ class AboutDeviceActivity : AppActivity() {
     private var aboutEnjoyTv : TextView ?= null
     private var aboutDeviceMacTv : TextView ?= null
 
+
+    //恢复出厂设置
+    private var aboutRecyclerLayout : ConstraintLayout ?= null
 
 
 
@@ -79,6 +86,7 @@ class AboutDeviceActivity : AppActivity() {
 
 
     override fun initView() {
+        aboutRecyclerLayout = findViewById(R.id.aboutRecyclerLayout)
         aboutDeviceMacTv = findViewById(R.id.aboutDeviceMacTv)
         aboutEnjoyTv = findViewById(R.id.aboutEnjoyTv)
         aboutDeviceNameTv = findViewById(R.id.aboutDeviceNameTv)
@@ -93,6 +101,10 @@ class AboutDeviceActivity : AppActivity() {
         aboutEnjoyTv?.setText(String.format(resources.getString(R.string.string_enter_website),"https://wuquestudio.cn"))
 
         aboutDeviceMacTv?.text = MmkvUtils.getConnDeviceMac()
+
+        aboutRecyclerLayout?.setOnClickListener {
+            showUnBindDialog(false)
+        }
     }
 
 
@@ -261,6 +273,34 @@ class AboutDeviceActivity : AppActivity() {
         window?.attributes = windowLayout
     }
 
+
+
+    private fun showUnBindDialog(isUnBind : Boolean){
+        val dialog = DeleteDeviceDialog(this, com.bonlala.base.R.style.BaseDialogTheme)
+        dialog.show()
+        if(!isUnBind){
+            dialog.setTitleTxt(resources.getString(R.string.string_recycler_yes_or_not))
+            dialog.setConfirmBgColor(Color.parseColor("#16AEA0"))
+        }else{
+            dialog.setTitleTxt(resources.getString(R.string.string_unbind_alert))
+        }
+        dialog.setOnCommClickListener { position ->
+            dialog.dismiss()
+            if (position == 0x01) {
+                BaseApplication.getBaseApplication().bleOperate.setRecyclerDevice()
+
+            }
+        }
+
+        val window = dialog.window
+        val windowLayout = window?.attributes
+        val metrics2: DisplayMetrics = resources.displayMetrics
+        val widthW: Int = metrics2.widthPixels
+
+        windowLayout?.width = widthW
+        windowLayout?.gravity = Gravity.BOTTOM
+        window?.attributes = windowLayout
+    }
 
 
 }

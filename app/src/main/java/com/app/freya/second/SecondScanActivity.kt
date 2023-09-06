@@ -7,6 +7,8 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.DisplayMetrics
+import android.view.Gravity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,8 @@ import com.app.freya.adapter.OnCommItemClickListener
 import com.app.freya.adapter.SecondScanAdapter
 import com.app.freya.bean.BleBean
 import com.app.freya.ble.ConnStatus
+import com.app.freya.ble.ConnStatusService
+import com.app.freya.dialog.DeleteDeviceDialog
 import com.app.freya.utils.BikeUtils
 import com.app.freya.utils.BonlalaUtils
 import com.app.freya.utils.MmkvUtils
@@ -46,6 +50,10 @@ class SecondScanActivity : AppActivity() {
             super.handleMessage(msg)
             if (msg.what == 0x00) {
                 BaseApplication.getBaseApplication().bleOperate.stopScanDevice()
+
+            }
+
+            if(msg.what == 0x01){
                 BaseApplication.getBaseApplication().bleOperate.disConnYakDevice()
             }
         }
@@ -143,9 +151,15 @@ class SecondScanActivity : AppActivity() {
             val service = BaseApplication.getBaseApplication().connStatusService
             val bean = list?.get(position)
             if (bean != null) {
-                showDialog("连接中..")
                 handlers.sendEmptyMessageDelayed(0x00, 500)
+                if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED){
 
+                    showConnDialogView(bean,service)
+
+                    return@OnCommItemClickListener
+                }
+
+                showDialog("连接中..")
 
 
                 service.connDeviceBack(
@@ -237,5 +251,48 @@ class SecondScanActivity : AppActivity() {
     override fun onDestroy() {
         super.onDestroy()
         BaseApplication.getInstance().bleManager.stopScan()
+    }
+
+
+
+    //提示请连接的dialog
+    private fun showConnDialogView(bean: BleBean,service : ConnStatusService){
+        val dialog = DeleteDeviceDialog(this, com.bonlala.base.R.style.BaseDialogTheme)
+        dialog.show()
+        dialog.setTitleTxt("是断开当前连接，并连接此设备?")
+        dialog.setOnCommClickListener(object : OnCommItemClickListener{
+            override fun onItemClick(position: Int) {
+                dialog.dismiss()
+                if(position == 0x01){   //确定
+                    showDialog("连接中..")
+                    handlers.sendEmptyMessage(0x01)
+                    handlers.postDelayed(Runnable {
+
+                        service.connDeviceBack(
+                            bean.bluetoothDevice.name, bean.bluetoothDevice.address
+                        ) { mac, status ->
+                            hideDialog()
+                            MmkvUtils.saveProductNumberCode(bean.productNumber)
+                            MmkvUtils.saveConnDeviceMac(mac)
+                            MmkvUtils.saveConnDeviceName(bean.bluetoothDevice.name)
+                            BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
+                            finish()
+                        }
+                    },2000)
+
+
+
+                }
+            }
+
+        })
+        val window = dialog.window
+        val windowLayout = window?.attributes
+        val metrics2: DisplayMetrics = resources.displayMetrics
+        val widthW: Int = metrics2.widthPixels
+
+        windowLayout?.width = widthW
+        windowLayout?.gravity = Gravity.BOTTOM
+        window?.attributes = windowLayout
     }
 }
