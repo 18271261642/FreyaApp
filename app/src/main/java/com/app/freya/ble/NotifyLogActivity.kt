@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import com.app.freya.R
 import com.app.freya.action.AppActivity
+import com.blala.blalable.BleManager
 import com.hjq.bar.OnTitleBarListener
 import java.lang.StringBuilder
 
@@ -62,7 +63,7 @@ class NotifyLogActivity : AppActivity() {
             if(action == "com.app.freya.ble.notify"){
                 val str = p1.getStringExtra("notify")
                 stringBuffer.append(str+"\n")
-                notifyLogTv?.text = stringBuffer.toString()
+                notifyLogTv?.text = stringBuffer.toString()+BleManager.getInstance(this@NotifyLogActivity).log
             }
         }
 

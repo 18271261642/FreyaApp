@@ -5,7 +5,9 @@ import android.app.Notification;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
@@ -163,7 +165,12 @@ public class SNNotificationService extends NotificationListenerService {
         Timber.e("-------发送app数据="+type+" title="+title+" content="+content);
 
         String st = "连接状态:"+BaseApplication.getBaseApplication().getConnStatus()+"\n"+"指令:"+ Utils.formatBtArrayToString(KeyBoardConstant.getMsgNotifyData(type, title, content));
-        sendBroad(st);
+      new Handler(Looper.myLooper()).postDelayed(new Runnable() {
+          @Override
+          public void run() {
+              sendBroad(st);
+          }
+      },2000);
         BaseApplication.getBaseApplication().getBleOperate().sendNotifyMsgData(type,title,content);
 
     }
