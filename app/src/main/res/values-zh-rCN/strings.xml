@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Freya</string>
 
+
+
+
+    <string name="string_new_app_version">有新版本</string>
     <string name="string_to_conn_prompt">此功能需要连接设备后使用，是否现在连接?</string>
     <string name="string_no_data">暂无数据</string>
     <string name="string_app_new_version">App有新版本,是否更新?</string>
@@ -38,7 +42,7 @@
     <string name="string_evening_good">晚上好</string>
     <string name="string_afternoon_good">下午好</string>
     <string name="string_morning_good">上午好</string>
-    <string name="string_has_last_version">已经是最新版本!</string>
+    <string name="string_has_last_version">已经是最新版本</string>
     <string name="string_speed_adjust">速度调节</string>
     <string name="string_preview">预览</string>
     <string name="string_auto_lock">自动锁定</string>

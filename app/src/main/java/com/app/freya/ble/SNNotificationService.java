@@ -164,9 +164,6 @@ public class SNNotificationService extends NotificationListenerService {
 
         String st = "连接状态:"+BaseApplication.getBaseApplication().getConnStatus()+"\n"+"指令:"+ Utils.formatBtArrayToString(KeyBoardConstant.getMsgNotifyData(type, title, content));
         sendBroad(st);
-        if(BaseApplication.getBaseApplication().getConnStatus() != ConnStatus.NOT_CONNECTED){
-            return;
-        }
         BaseApplication.getBaseApplication().getBleOperate().sendNotifyMsgData(type,title,content);
 
     }

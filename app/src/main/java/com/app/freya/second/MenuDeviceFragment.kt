@@ -173,9 +173,11 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
 
         //app版本更新
         menuDeviceAboutAppLayout?.setOnClickListener {
-            val packManager = attachActivity.packageManager
-            val packInfo = packManager.getPackageInfo(attachActivity.packageName,0)
-            viewModel.checkAppVersion(packInfo.versionCode)
+//            val packManager = attachActivity.packageManager
+//            val packInfo = packManager.getPackageInfo(attachActivity.packageName,0)
+//            viewModel.checkAppVersion(packInfo.versionCode)
+
+            startActivity(AppVersionActivity::class.java)
         }
     }
 

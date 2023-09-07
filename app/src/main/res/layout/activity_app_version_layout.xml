@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/second_theme_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lineVisible="false"
+        android:background="@color/transparent"
+        app:leftIcon="@drawable/ic_white_left_back"/>
+
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_gravity="center"
+        android:src="@mipmap/icon_app_logo"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp_10"
+        android:textSize="@dimen/sp_18"
+        android:text="掌上悟确"/>
+
+
+    <TextView
+        android:id="@+id/appVersionCurrentTv"
+        android:textSize="@dimen/sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:text="@string/string_app_version"/>
+
+
+    <com.hjq.shape.layout.ShapeConstraintLayout
+        android:id="@+id/appCheckLayout"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingTop="15dp"
+        app:shape_endColor="#262D38"
+        app:shape_radius="@dimen/dp_15"
+        app:shape_solidPressedColor="#80262D38"
+        app:shape_startColor="#343348"
+        android:paddingBottom="15dp"
+        android:layout_height="wrap_content">
+
+        <com.hjq.shape.view.ShapeTextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="@string/string_version"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            />
+
+        <TextView
+            android:id="@+id/appVersionDescTv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/white"
+            android:text=""/>
+
+    </com.hjq.shape.layout.ShapeConstraintLayout>
+
+
+</LinearLayout>
