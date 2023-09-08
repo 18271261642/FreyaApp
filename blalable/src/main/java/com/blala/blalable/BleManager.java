@@ -444,7 +444,7 @@ public class BleManager {
     }
     //写入设备数据
     public synchronized void writeDataToDevice(byte[] data){
-        Log.e(TAG,"-----写入数据="+Arrays.toString(data));
+        Log.e(TAG,"-----写入数据="+Utils.formatBtArrayToString(data));
         String bleMac = (String) BleSpUtils.get(mContext,SAVE_BLE_MAC_KEY,"");
         if(TextUtils.isEmpty(bleMac))
             return;

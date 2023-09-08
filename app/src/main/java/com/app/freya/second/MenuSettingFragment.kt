@@ -86,6 +86,11 @@ class MenuSettingFragment : TitleBarFragment<SecondHomeActivity>() {
         settingAlarmLayout?.visibility = if(BikeUtils.isEmpty(mac)) View.VISIBLE else View.GONE
         secondUploadGifView?.visibility = if(BikeUtils.isEmpty(mac)) View.GONE else View.VISIBLE
 
+
+
+
+
+
     }
 
     override fun onClick(view: View?) {

@@ -212,7 +212,7 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
                 deviceAboutTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
                 menuScheduleTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
                 menuDeviceRecyclerLayout?.visibility = View.GONE
-                menuScheduleTv?.visibility = View.GONE
+                //menuScheduleTv?.visibility = View.GONE
                 getBattery()
             }else{
                 menuDeviceRecyclerLayout?.visibility = View.GONE

@@ -14,7 +14,6 @@ import com.google.gson.Gson
 import com.hjq.bar.OnTitleBarListener
 import com.hjq.bar.TitleBar
 import timber.log.Timber
-import kotlin.math.min
 
 class AddAlarmDialog : AppCompatDialog {
 

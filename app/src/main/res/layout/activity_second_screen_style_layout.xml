@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/second_theme_color"
+    android:layout_height="match_parent">
+
+
+    <com.hjq.bar.TitleBar
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleColor="@color/white"
+        app:title="@string/string_setting_screen_style"
+        app:leftIcon="@drawable/ic_white_left_back"
+        android:background="@color/transparent"
+        app:lineVisible="false"/>
+
+
+
+
+
+
+</LinearLayout>

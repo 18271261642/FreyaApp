@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.freya.BaseApplication
-import com.app.freya.EditNoteBookActivity
 import com.app.freya.R
 import com.app.freya.action.AppActivity
 import com.app.freya.adapter.OnClickLongListener
