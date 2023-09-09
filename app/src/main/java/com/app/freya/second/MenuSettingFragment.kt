@@ -81,10 +81,10 @@ class MenuSettingFragment : TitleBarFragment<SecondHomeActivity>() {
 
 
         val mac = MmkvUtils.getConnDeviceMac()
-        screenStyleButtonView?.visibility = if(BikeUtils.isEmpty(mac)) View.VISIBLE else View.GONE
-        clockStyleButtonView?.visibility = if(BikeUtils.isEmpty(mac)) View.VISIBLE else View.GONE
-        settingAlarmLayout?.visibility = if(BikeUtils.isEmpty(mac)) View.VISIBLE else View.GONE
-        secondUploadGifView?.visibility = if(BikeUtils.isEmpty(mac)) View.GONE else View.VISIBLE
+        screenStyleButtonView?.visibility = View.GONE
+        clockStyleButtonView?.visibility =  View.GONE
+        settingAlarmLayout?.visibility =  View.GONE
+        secondUploadGifView?.visibility =  View.VISIBLE
 
 
 

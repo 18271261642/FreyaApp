@@ -20,6 +20,26 @@ public class BleBean {
     private String recordStr;
 
 
+    private String bleName;
+
+    private String bleMac;
+
+
+
+    //是否是连接过的设备
+    private boolean isBind;
+
+    public boolean isBind() {
+        return isBind;
+    }
+
+    public void setBind(boolean bind) {
+        isBind = bind;
+    }
+
+    public BleBean() {
+    }
+
     public BleBean(BluetoothDevice bluetoothDevice, int rssi) {
         this.bluetoothDevice = bluetoothDevice;
         this.rssi = rssi;
@@ -70,5 +90,21 @@ public class BleBean {
 
     public void setProductNumber(String productNumber) {
         this.productNumber = productNumber;
+    }
+
+    public String getBleName() {
+        return bleName;
+    }
+
+    public void setBleName(String bleName) {
+        this.bleName = bleName;
+    }
+
+    public String getBleMac() {
+        return bleMac;
+    }
+
+    public void setBleMac(String bleMac) {
+        this.bleMac = bleMac;
     }
 }

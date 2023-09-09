@@ -38,11 +38,23 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
     @SuppressLint("MissingPermission")
     override fun onBindViewHolder(holder: SecondScanAdapter.ScanDeviceViewHolder, position: Int) {
 
-        holder.itemScanName.text = list[position].bluetoothDevice.name
-        holder.itemSecondMacTv.text = list[position].bluetoothDevice.address
+        val b = list[position]
+        if(b.isBind){
+            holder.itemScanName.text = b.bleName
+            holder.itemSecondMacTv.text = b.bleMac
 
-        holder.itemRecordTv.text = list[position].recordStr
-        holder.itemProductNameTv.text = list[position].productNumber.toString()
+//            holder.itemRecordTv.text = list[position].recordStr
+//            holder.itemProductNameTv.text = list[position].productNumber.toString()
+
+        }else{
+            holder.itemScanName.text = list[position].bluetoothDevice.name
+            holder.itemSecondMacTv.text = list[position].bluetoothDevice.address
+
+            holder.itemRecordTv.text = list[position].recordStr
+            holder.itemProductNameTv.text = list[position].productNumber.toString()
+
+        }
+
 
 
         holder.itemView.setOnClickListener {

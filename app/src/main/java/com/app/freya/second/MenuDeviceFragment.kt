@@ -220,6 +220,8 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
             }
 
         }
+
+        menuScheduleTv?.visibility = View.GONE
       //  deviceAboutTv!!.shapeDrawableBuilder.setSolidGradientColors(intArrayOf(Color.parseColor("#343348"),Color.parseColor("#262D38"))).intoBackground()
     }
 

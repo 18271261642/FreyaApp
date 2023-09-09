@@ -2,6 +2,7 @@ package com.app.freya.second
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothDevice
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
@@ -42,6 +43,14 @@ class SecondScanActivity : AppActivity() {
     private var adapter: SecondScanAdapter? = null
     private var list: MutableList<BleBean>? = null
 
+
+    private var bindList : MutableList<BleBean>?=null
+    private var bindAdapter : SecondScanAdapter ?= null
+    //已连接的设备
+    private var secondConnRecyclerView : RecyclerView ?= null
+
+
+
     //用于去重的list
     private var repeatList: MutableList<String>? = null
 
@@ -64,10 +73,20 @@ class SecondScanActivity : AppActivity() {
     }
 
     override fun initView() {
+        secondConnRecyclerView = findViewById(R.id.secondConnRecyclerView)
         secondScanRy = findViewById(R.id.secondScanRy)
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         secondScanRy?.layoutManager = linearLayoutManager
+
+        val lm = LinearLayoutManager(this)
+        lm.orientation = LinearLayoutManager.VERTICAL
+        secondConnRecyclerView?.layoutManager = lm
+        bindList = mutableListOf()
+        bindAdapter = SecondScanAdapter(this, bindList!!)
+        secondConnRecyclerView?.adapter = bindAdapter
+
+
         list = mutableListOf()
         adapter = SecondScanAdapter(context, list!!)
         secondScanRy?.adapter = adapter
@@ -77,6 +96,28 @@ class SecondScanActivity : AppActivity() {
 
     override fun initData() {
         verifyScanFun(false)
+
+        getBindDeviceList()
+    }
+
+
+    //获取绑定的设备
+    private fun getBindDeviceList(){
+        val saveMac = MmkvUtils.getConnDeviceMac()
+        if(!BikeUtils.isEmpty(saveMac)){
+            val bean = BleBean()
+            bean.isBind = true
+            bean.rssi = 0
+            bean.productNumber = MmkvUtils.getSaveProductNumber()
+            bean.bleMac = MmkvUtils.getConnDeviceMac()
+            bean.bleName = MmkvUtils.getConnDeviceName()
+            bindList?.add(bean)
+            bindAdapter?.notifyDataSetChanged()
+
+        }
+
+
+
     }
 
 
@@ -179,6 +220,7 @@ class SecondScanActivity : AppActivity() {
     val stringBuilder = StringBuilder()
     //开始扫描
     private fun startScan() {
+        val saveMac = MmkvUtils.getConnDeviceMac()
        val typeMap = BaseApplication.supportDeviceTypeMap
         stringBuilder.delete(0,stringBuilder.length);
         BaseApplication.getBaseApplication().bleOperate.scanBleDevice(object : SearchResponse {
@@ -208,6 +250,12 @@ class SecondScanActivity : AppActivity() {
                 if(bleName.lowercase(Locale.ROOT).contains("huawei")){
                     return
                 }
+                if(!BikeUtils.isEmpty(saveMac) && saveMac.lowercase(Locale.ROOT) ==p0.address.toLowerCase(
+                        Locale.ROOT)){
+                    return
+                }
+
+
                 if (repeatList?.size!! > 40) {
                     return
                 }
