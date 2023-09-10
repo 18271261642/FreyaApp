@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.freya.R
 import com.app.freya.bean.BleBean
+import com.app.freya.widget.RssiStateView
 
 /**
  * Created by Admin
@@ -28,6 +29,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
         val itemSecondMacTv = itemView.findViewById<TextView>(R.id.itemSecondMacTv)
         val itemRecordTv = itemView.findViewById<TextView>(R.id.itemRecordTv)
         val itemProductNameTv = itemView.findViewById<TextView>(R.id.itemProductNameTv)
+        val rssiView = itemView.findViewById<RssiStateView>(R.id.itemRssiTv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScanDeviceViewHolder {
@@ -42,7 +44,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
         if(b.isBind){
             holder.itemScanName.text = b.bleName
             holder.itemSecondMacTv.text = b.bleMac
-
+            holder.rssiView.setRssiValue(0)
 //            holder.itemRecordTv.text = list[position].recordStr
 //            holder.itemProductNameTv.text = list[position].productNumber.toString()
 
@@ -52,7 +54,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
 
             holder.itemRecordTv.text = list[position].recordStr
             holder.itemProductNameTv.text = list[position].productNumber.toString()
-
+            holder.rssiView.setRssiValue(Math.abs(b.rssi))
         }
 
 

@@ -201,7 +201,7 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
         if(BikeUtils.isEmpty(bleName)){
             deviceUnBindTv?.visibility = View.INVISIBLE
             secondMenuDeviceConnStateTv?.text = "未连接"
-            deviceAboutTv!!.setBackgroundResource(R.drawable.no_conn_shape)
+          //  deviceAboutTv!!.setBackgroundResource(R.drawable.no_conn_shape)
             menuScheduleTv?.setBackgroundResource(R.drawable.no_conn_shape)
             menuDeviceRecyclerLayout?.visibility = View.GONE
         }else{
