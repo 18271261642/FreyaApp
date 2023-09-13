@@ -2,6 +2,9 @@
     <string name="app_name">Freya</string>
 
 
+    <string name="string_has_conn_device">已连接的设备</string>
+    <string name="string_remove_device">移除设备</string>
+    <string name="string_remove_device_prompt">是否移除设备?</string>
 
 
     <string name="string_new_app_version">有新版本</string>

@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Freya</string>
 
+
+    <string name="string_has_conn_device">已连接的设备</string>
+    <string name="string_remove_device">Remove Device</string>
+    <string name="string_remove_device_prompt">是否移除设备?</string>
+
+
     <string name="string_new_app_version">New version</string>
     <string name="string_to_conn_prompt">此功能需要连接设备后使用，是否现在连接?</string>
     <string name="string_no_data">No Data</string>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/second_theme_color"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:title="@string/string_has_conn_device"
+        app:titleColor="@color/white"
+
+        app:leftIcon="@drawable/ic_white_left_back"
+        app:lineVisible="false"/>
+
+
+    <com.hjq.shape.layout.ShapeConstraintLayout
+        android:id="@+id/secondShowNameLayout"
+        android:layout_width="match_parent"
+        app:shape_startColor="#343348"
+        app:shape_angle="270"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_40"
+        app:shape_radius="@dimen/dp_20"
+        app:shape_endColor="#262D38"
+        android:padding="@dimen/dp_5"
+        app:shape_solidPressedColor="#80262D38"
+        android:layout_height="wrap_content">
+
+
+        <com.bonlala.widget.layout.SettingBar
+            android:id="@+id/hasBindDeviceNameBar"
+            app:bar_leftTextColor="@color/white"
+            app:bar_leftText="@string/string_name"
+            app:bar_lineVisible="false"
+            app:bar_rightTextColor="@color/white"
+            app:bar_rightText="1分钟"
+            app:bar_rightDrawable="@mipmap/ic_white_right_back"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.hjq.shape.layout.ShapeConstraintLayout>
+
+    <com.hjq.shape.view.ShapeTextView
+        android:id="@+id/bindDeviceUnBindTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/string_unbind"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold"
+        app:shape_radius="@dimen/dp_15"
+        app:shape_solidPressedColor="#90FD6A4A"
+        app:shape_solidColor="#FD6A4A" />
+
+</LinearLayout>

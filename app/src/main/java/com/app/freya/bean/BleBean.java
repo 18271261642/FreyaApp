@@ -2,6 +2,8 @@ package com.app.freya.bean;
 
 import android.bluetooth.BluetoothDevice;
 
+import com.app.freya.ble.ConnStatus;
+
 /**
  * Created by Admin
  * Date 2022/8/4
@@ -28,6 +30,11 @@ public class BleBean {
 
     //是否是连接过的设备
     private boolean isBind;
+
+
+    //连接状态
+    private ConnStatus connStatus ;
+
 
     public boolean isBind() {
         return isBind;
@@ -106,5 +113,14 @@ public class BleBean {
 
     public void setBleMac(String bleMac) {
         this.bleMac = bleMac;
+    }
+
+
+    public ConnStatus getConnStatus() {
+        return connStatus;
+    }
+
+    public void setConnStatus(ConnStatus connStatus) {
+        this.connStatus = connStatus;
     }
 }

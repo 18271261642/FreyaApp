@@ -34,7 +34,7 @@ class RssiStateView : LinearLayout {
     //设置信号值
     fun setRssiValue(value : Int){
         if(value == 0){
-            rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_full)
+            rssiStateImageView?.setImageResource(R.mipmap.ic_bind_img)
             return
         }
 

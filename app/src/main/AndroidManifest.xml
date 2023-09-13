@@ -128,6 +128,10 @@
         <activity android:name=".second.SecondAutoLockActivity"/>
         <activity android:name=".second.SecondGifSpeedActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".second.SecondHasBindDeviceActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".second.SecondEditBindNameActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.app.freya.ble.SNNotificationService"

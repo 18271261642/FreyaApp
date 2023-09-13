@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/second_theme_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:title="@string/string_name"
+        app:titleColor="@color/white"
+        app:rightTitleColor="@color/white"
+        app:rightTitle="@string/string_save"
+        app:leftIcon="@drawable/ic_white_left_back"
+        app:lineVisible="false"/>
+
+
+    <com.hjq.shape.layout.ShapeConstraintLayout
+        android:id="@+id/secondGifDormancyLayout"
+        android:layout_width="match_parent"
+        app:shape_startColor="#343348"
+        app:shape_angle="270"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_40"
+        app:shape_radius="@dimen/dp_20"
+        app:shape_endColor="#262D38"
+        android:padding="@dimen/dp_5"
+        app:shape_solidPressedColor="#80262D38"
+        android:layout_height="wrap_content">
+
+
+
+        <com.bonlala.widget.view.ClearEditText
+            android:id="@+id/secondEditNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="@dimen/sp_18"
+            android:text="Zooom"
+            android:padding="@dimen/dp_5"
+            android:paddingStart="@dimen/dp_5"
+            android:background="@null"
+            android:textColor="@color/white"
+            android:singleLine="true"/>
+
+    </com.hjq.shape.layout.ShapeConstraintLayout>
+
+
+</LinearLayout>

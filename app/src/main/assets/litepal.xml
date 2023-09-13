@@ -5,7 +5,7 @@
 
     <list>
         <mapping class="com.app.freya.bean.NoteBookBean"/>
-
+        <mapping class="com.app.freya.bean.UserBindDeviceBean"/>
     </list>
     <storage value="external" />
 </litepal>

@@ -13,6 +13,7 @@ import com.app.freya.BaseApplication
 import com.app.freya.R
 import com.app.freya.action.TitleBarFragment
 import com.app.freya.adapter.OnCommItemClickListener
+import com.app.freya.bean.DbManager
 import com.app.freya.ble.ConnStatus
 import com.app.freya.ble.OnConnStateListener
 
@@ -247,12 +248,13 @@ class MenuDeviceFragment : TitleBarFragment<SecondHomeActivity>(){
             dialog.dismiss()
             if (position == 0x01) {   //解绑
                 if(isUnBind){
-
+                    DbManager.getInstance().deleteBindDevice(MmkvUtils.getConnDeviceMac())
                     BaseApplication.getBaseApplication().connStatus = ConnStatus.NOT_CONNECTED
                     BaseApplication.getBaseApplication().bleOperate.disConnYakDevice()
                     MmkvUtils.saveConnDeviceName("")
                     MmkvUtils.saveConnDeviceMac("")
                     attachActivity.showIsAddDevice()
+
                     showConnState()
                 }else{
                     BaseApplication.getBaseApplication().bleOperate.setRecyclerDevice()

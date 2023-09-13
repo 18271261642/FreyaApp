@@ -41,6 +41,20 @@
             android:padding="@dimen/dp_5"
             android:layout_gravity="center"/>
 
+
+        <ImageView
+            android:id="@+id/itemConningImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/itemRssiTv"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_item_conning_img"/>
+
+
+
+
         <TextView
             android:id="@+id/itemSecondNameTv"
             app:layout_constraintTop_toTopOf="parent"
