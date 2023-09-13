@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.freya.R
 import com.app.freya.bean.BleBean
 import com.app.freya.widget.RssiStateView
+import timber.log.Timber
 
 /**
  * Created by Admin
@@ -41,6 +42,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
     override fun onBindViewHolder(holder: SecondScanAdapter.ScanDeviceViewHolder, position: Int) {
 
         val b = list[position]
+        Timber.e("-----rssi="+Math.abs(b.rssi))
         if(b.isBind){
             holder.itemScanName.text = b.bleName
             holder.itemSecondMacTv.text = b.bleMac

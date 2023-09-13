@@ -35,24 +35,30 @@ class RssiStateView : LinearLayout {
     fun setRssiValue(value : Int){
         if(value == 0){
             rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_full)
+            return
         }
 
         if(value<=65){
             rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_full)
+            return
         }
 
         if(value<=70){
             rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_3)
+            return
         }
         if(value<=75){
             rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_2)
+            return
         }
 
         if(value<=80){
             rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_1)
+            return
         }
         if(value<=85){
             rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_0)
+            return
         }
 
         invalidate()
