@@ -318,10 +318,10 @@ class SecondScanActivity : AppActivity() {
     private val onBIndMenuClick : OnCommMenuClickListener = object : OnCommMenuClickListener{
         override fun onItemClick(position: Int) {
             val bean = bindList?.get(position)
-            if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTING){
-                ToastUtils.show("正在连接中,请稍后!")
-                return
-            }
+//            if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTING){
+//                ToastUtils.show("正在连接中,请稍后!")
+//                return
+//            }
             if(bean == null)
                 return
             if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED){
@@ -374,10 +374,10 @@ class SecondScanActivity : AppActivity() {
             val service = BaseApplication.getBaseApplication().connStatusService
             val bean = list?.get(position)
             if (bean != null) {
-                if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTING){
-                    ToastUtils.show("正在连接中,请稍后!")
-                    return
-                }
+//                if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTING){
+//                    ToastUtils.show("正在连接中,请稍后!")
+//                    return
+//                }
                 if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED){
                     //判断是否是连接当前的设备
                     if(bean.bleMac == MmkvUtils.getConnDeviceMac()){
@@ -499,7 +499,10 @@ class SecondScanActivity : AppActivity() {
                             }
                             if(!repeatList!!.contains(p0.address)){
                                 p0.address?.let { repeatList?.add(it) }
-                                list?.add(BleBean(p0.device, p0.rssi,keyStr,scanRecord))
+                                val b = BleBean(p0.device,p0.rssi,keyStr,scanRecord)
+                                b.bleMac = bleMac
+                                b.bleName = bleName
+                                list?.add(b)
                                 list?.sortBy {
                                     Math.abs(it.rssi)
                                 }
@@ -526,7 +529,10 @@ class SecondScanActivity : AppActivity() {
                         }
                         if(!repeatList!!.contains(p0.address)){
                             p0.address?.let { repeatList?.add(it) }
-                            list?.add(BleBean(p0.device, p0.rssi,keyStr,scanRecord))
+                            val b = BleBean(p0.device,p0.rssi,keyStr,scanRecord)
+                            b.bleMac = bleMac
+                            b.bleName = bleName
+                            list?.add(b)
                             list?.sortBy {
                                 Math.abs(it.rssi)
                             }

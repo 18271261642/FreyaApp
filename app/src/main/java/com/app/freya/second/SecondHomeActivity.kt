@@ -326,7 +326,7 @@ class SecondHomeActivity : AppActivity() {
                 service.autoConnDevice(mac, false,true)
             }
 
-        }, 3000)
+        }, 2000)
 
     }
 
