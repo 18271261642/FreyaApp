@@ -10,6 +10,7 @@ import com.app.freya.action.AppActivity
 import com.app.freya.bean.DbManager
 import com.app.freya.ble.ConnStatus
 import com.app.freya.dialog.DeleteDeviceDialog
+import com.app.freya.utils.BikeUtils
 import com.app.freya.utils.MmkvUtils
 import com.bonlala.widget.layout.SettingBar
 import com.hjq.shape.layout.ShapeConstraintLayout
@@ -80,11 +81,14 @@ class SecondHasBindDeviceActivity :AppActivity() {
             dialog.dismiss()
             if (position == 0x01) {   //解绑
                 if(isUnBind){
-                    DbManager.getInstance().deleteBindDevice(MmkvUtils.getConnDeviceMac())
-                    BaseApplication.getBaseApplication().connStatus = ConnStatus.NOT_CONNECTED
-                    BaseApplication.getBaseApplication().bleOperate.disConnYakDevice()
-                    MmkvUtils.saveConnDeviceName("")
-                    MmkvUtils.saveConnDeviceMac("")
+                    DbManager.getInstance().deleteBindDevice(mac)
+                    val conBleMac = MmkvUtils.getConnDeviceMac()
+                    if(!BikeUtils.isEmpty(conBleMac) && mac == conBleMac){
+                        BaseApplication.getBaseApplication().connStatus = ConnStatus.NOT_CONNECTED
+                        BaseApplication.getBaseApplication().bleOperate.disConnYakDevice()
+                        MmkvUtils.saveConnDeviceName("")
+                        MmkvUtils.saveConnDeviceMac("")
+                    }
                     finish()
                 }else{
                     BaseApplication.getBaseApplication().bleOperate.setRecyclerDevice()

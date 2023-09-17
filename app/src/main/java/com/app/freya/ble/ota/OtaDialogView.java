@@ -115,7 +115,7 @@ public class OtaDialogView extends AppCompatDialog {
 
                     bleclass.disconnect();
                     upgradeStateTv.setText(getContext().getResources().getString(R.string.string_upgrade_restart));
-                    BaseApplication.getBaseApplication().getConnStatusService().autoConnDevice(connMac,false);
+                    BaseApplication.getBaseApplication().getConnStatusService().autoConnDevice(connMac,false,true);
                     handler.sendEmptyMessageDelayed(0x81,4000);
                 }catch (Exception e){
                     e.printStackTrace();

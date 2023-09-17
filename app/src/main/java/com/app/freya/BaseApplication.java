@@ -60,6 +60,10 @@ public class BaseApplication extends BleApplication {
     /**所有支持的设备列表，从后台获取**/
     public static HashMap<String,String> supportDeviceTypeMap = new HashMap<>();
 
+
+    /**搜索页面是否打开了，搜索页面打开了不停止搜索**/
+    private boolean isActivityScan = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -222,5 +226,14 @@ public class BaseApplication extends BleApplication {
 
     public String getAppLog(){
         return stringBuffer.toString();
+    }
+
+
+    public boolean isActivityScan() {
+        return isActivityScan;
+    }
+
+    public void setActivityScan(boolean activityScan) {
+        isActivityScan = activityScan;
     }
 }

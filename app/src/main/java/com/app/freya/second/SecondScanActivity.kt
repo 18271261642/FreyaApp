@@ -3,6 +3,10 @@ package com.app.freya.second
 import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
@@ -27,13 +31,17 @@ import com.app.freya.dialog.DeleteDeviceDialog
 import com.app.freya.utils.BikeUtils
 import com.app.freya.utils.BonlalaUtils
 import com.app.freya.utils.MmkvUtils
+import com.blala.blalable.BleConstant
 import com.blala.blalable.Utils
+import com.blala.blalable.listener.BleScanListener
+import com.google.gson.Gson
 import com.hjq.permissions.XXPermissions
 import com.hjq.toast.ToastUtils
 import com.inuker.bluetooth.library.search.SearchResult
 import com.inuker.bluetooth.library.search.response.SearchResponse
 import timber.log.Timber
 import java.util.Locale
+import kotlin.math.abs
 
 /**
  * Created by Admin
@@ -52,7 +60,7 @@ class SecondScanActivity : AppActivity() {
     //已连接的设备
     private var secondConnRecyclerView : RecyclerView ?= null
 
-
+    private val connStatusService = BaseApplication.getBaseApplication().connStatusService
 
     //用于去重的list
     private var repeatList: MutableList<String>? = null
@@ -102,22 +110,136 @@ class SecondScanActivity : AppActivity() {
     }
 
     override fun initData() {
-        repeatList?.clear()
-        list?.clear()
-        verifyScanFun(false)
-        getBindDeviceList()
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(BleConstant.BLE_CONNECTED_ACTION)
+        intentFilter.addAction(BleConstant.BLE_DIS_CONNECT_ACTION)
+        intentFilter.addAction(BleConstant.BLE_SCAN_COMPLETE_ACTION)
+        intentFilter.addAction(BleConstant.BLE_START_SCAN_ACTION)
+        registerReceiver(broadcastReceiver,intentFilter)
+
+    }
+
+
+    private fun backScanDevice(){
+        //已经绑定的设备
+        val bindUserList = DbManager.getInstance().allBindDevice
+        bindUserList?.sortByDescending { it ->it.bindTime }
+        val saveMac = MmkvUtils.getConnDeviceMac()
+       connStatusService.setBleScanListener(object : BleScanListener{
+           override fun onSearchStarted() {
+
+           }
+
+           override fun onDeviceFounded(searchResult: SearchResult?) {
+               stringBuilder.delete(0,stringBuilder.length);
+               if (searchResult?.getScanRecord() == null || searchResult.getScanRecord().isEmpty())
+                   return
+               val bleMac = searchResult.device.address
+               val tempStr = Utils.formatBtArrayToString(searchResult.getScanRecord())
+               // stringBuilder.append(tempStr)
+               val recordStr = tempStr
+               val bleName = searchResult.name
+               // Timber.e("--------扫描="+p0.name+" "+recordStr)
+               if (BikeUtils.isEmpty(bleName) || bleName.equals("NULL") || BikeUtils.isEmpty(searchResult.address))
+                   return
+               if (repeatList?.contains(searchResult.address) == true)
+                   return
+               if(BikeUtils.isEmpty(recordStr)){
+                   return
+               }
+
+               if(bleName.lowercase(Locale.ROOT).contains("huawei")){
+                   return
+               }
+               if(!BikeUtils.isEmpty(saveMac) && saveMac.lowercase(Locale.ROOT) ==searchResult.address.toLowerCase(
+                       Locale.ROOT)){
+                   return
+               }
+               if (repeatList?.size!! > 40) {
+                   return
+               }
+               if(abs(searchResult.rssi) >85)
+                   return
+               if(bindUserList!=null){
+                   bindUserList.forEach {
+                       if(it.deviceMac == bleMac){
+                           it.rssi = searchResult.rssi
+                       }
+                   }
+                   bindAdapter?.notifyDataSetChanged()
+               }
+
+
+               if(!repeatList!!.contains(searchResult.address) ){
+                   searchResult.address?.let { repeatList?.add(it) }
+                   list?.add(BleBean(searchResult.device, searchResult.rssi,"",recordStr))
+                   list?.sortBy {
+                       Math.abs(it.rssi)
+                   }
+               }
+
+               adapter?.notifyDataSetChanged()
+
+               /* typeMap.forEach {
+                    val keyStr = it.key
+                    val tempK = Utils.changeStr(keyStr)
+                    val scanRecord = recordStr.lowercase(Locale.ROOT)
+                    val front = scanRecord.contains(keyStr.lowercase(Locale.ROOT))
+                    val back = scanRecord.contains(tempK.lowercase(Locale.ROOT))
+                    Timber.e("----转换="+tempK)
+                    if(front || back){
+                        //判断少于40个设备就不添加了
+                        if (repeatList?.size!! > 40) {
+                            return
+                        }
+                        if(!repeatList!!.contains(p0.address)){
+                            searchResult.address?.let { repeatList?.add(it) }
+                            list?.add(BleBean(searchResult.device, searchResult.rssi,keyStr,scanRecord))
+                            list?.sortBy {
+                                Math.abs(it.rssi)
+                            }
+                        }
+
+                        adapter?.notifyDataSetChanged()
+                    }
+                }*/
+           }
+
+           override fun onSearchStopped() {
+
+           }
+
+           override fun onSearchCanceled() {
+
+           }
+
+       })
     }
 
 
     override fun onResume() {
         super.onResume()
+        dealScanDevice()
+    }
+
+
+    private fun dealScanDevice(){
+        BaseApplication.getBaseApplication().isActivityScan = true
+        repeatList?.clear()
+        list?.clear()
+
+        //  backScanDevice()
+
         getBindDeviceList()
+        verifyScanFun(false)
     }
 
 
     //获取绑定的设备
     private fun getBindDeviceList(){
         bindList?.clear()
+
         val isCOnn = BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED
         val bindUserList = DbManager.getInstance().allBindDevice
         val mac = MmkvUtils.getConnDeviceMac()
@@ -131,13 +253,15 @@ class SecondScanActivity : AppActivity() {
                 bean.bleMac = it.deviceMac
                 bean.bleName = it.deviceName
                 if(!BikeUtils.isEmpty(mac) && mac == it.deviceMac){
-                    bean.connStatus = ConnStatus.CONNECTED
+                    bean.connStatus =  BaseApplication.getBaseApplication().connStatus
                 }
                 bindList?.add(bean)
             }
             bindAdapter?.notifyDataSetChanged()
+        }else{
+            bindList?.clear()
+            bindAdapter?.notifyDataSetChanged()
         }
-
     }
 
 
@@ -186,19 +310,7 @@ class SecondScanActivity : AppActivity() {
             BonlalaUtils.openBluetooth(this)
             return
         }
-
-
-
-        if (isReconn) {
-            val mac = MmkvUtils.getConnDeviceMac()
-            if (BikeUtils.isEmpty(mac))
-                return
-            BaseApplication.getBaseApplication().connStatusService.autoConnDevice(mac, false)
-
-        } else {
-
-            startScan()
-        }
+        startScan()
 
     }
 
@@ -210,6 +322,8 @@ class SecondScanActivity : AppActivity() {
                 ToastUtils.show("正在连接中,请稍后!")
                 return
             }
+            if(bean == null)
+                return
             if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED){
                 //判断是否是连接当前的设备
                 if(bean?.bleMac == MmkvUtils.getConnDeviceMac()){
@@ -218,14 +332,30 @@ class SecondScanActivity : AppActivity() {
                 }
                 val service = BaseApplication.getBaseApplication().connStatusService
                 if (bean != null) {
-                    showConnDialogView(bean,service,true)
+                    showConnDialogView(bean,service,true,position)
                 }
 
                 return
             }
+            bindList?.get(position)?.connStatus = ConnStatus.CONNECTING
+            bindAdapter?.notifyItemChanged(position)
+            connStatusService.connDeviceBack(
+                bean.bleName, bean.bleMac
+            ) { mac, status ->
+                hideDialog()
+                ToastUtils.show(resources.getString(R.string.string_conn_success))
+                DbManager.getInstance().saveUserBindDevice(bean.bleName,bean.bleMac,BikeUtils.getFormatDate(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"))
+                BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
+                bindList?.get(position)?.connStatus = ConnStatus.CONNECTED
+                bindList?.get(position)?.rssi = 0
+                bindAdapter?.notifyItemChanged(position)
+                MmkvUtils.saveProductNumberCode(bean.productNumber)
+                MmkvUtils.saveConnDeviceMac(mac)
+                MmkvUtils.saveConnDeviceName(bean.bleName)
 
-
-            //自动连接
+                dealScanDevice()
+                //initData()
+            }
 
         }
 
@@ -244,19 +374,39 @@ class SecondScanActivity : AppActivity() {
             val service = BaseApplication.getBaseApplication().connStatusService
             val bean = list?.get(position)
             if (bean != null) {
-                handlers.sendEmptyMessageDelayed(0x00, 500)
+                if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTING){
+                    ToastUtils.show("正在连接中,请稍后!")
+                    return
+                }
+                if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED){
+                    //判断是否是连接当前的设备
+                    if(bean.bleMac == MmkvUtils.getConnDeviceMac()){
+                        ToastUtils.show("当前设备已经连接!")
+                        return
+                    }else{
+                        showConnDialogView(bean,service,false,position)
+                    }
+
+                    return
+                }
+
+
+
+               // handlers.sendEmptyMessageDelayed(0x00, 500)
                 showDialog("连接中..")
+                bean.connStatus = ConnStatus.CONNECTING
+                adapter?.notifyItemChanged(position)
+
                 service.connDeviceBack(
                     bean.bluetoothDevice.name, bean.bluetoothDevice.address
                 ) { mac, status ->
                     hideDialog()
-
                     DbManager.getInstance().saveUserBindDevice(bean.bluetoothDevice.name, bean.bluetoothDevice.address,BikeUtils.getFormatDate(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"))
                     MmkvUtils.saveProductNumberCode(bean.productNumber)
                     MmkvUtils.saveConnDeviceMac(mac)
                     MmkvUtils.saveConnDeviceName(bean.bluetoothDevice.name)
                     BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
-                    initData()
+                    dealScanDevice()
                     //  finish()
                 }
             }
@@ -270,46 +420,15 @@ class SecondScanActivity : AppActivity() {
     }
 
 
-    @SuppressLint("MissingPermission")
-    private val onItemClick: OnCommItemClickListener =
-        OnCommItemClickListener { position ->
-            val service = BaseApplication.getBaseApplication().connStatusService
-            val bean = list?.get(position)
-            if (bean != null) {
-                handlers.sendEmptyMessageDelayed(0x00, 500)
-                if(BaseApplication.getBaseApplication().connStatus == ConnStatus.CONNECTED){
-
-                    showConnDialogView(bean,service,false)
-
-                    return@OnCommItemClickListener
-                }
-
-                showDialog("连接中..")
-
-
-                service.connDeviceBack(
-                    bean.bluetoothDevice.name, bean.bluetoothDevice.address
-                ) { mac, status ->
-                    hideDialog()
-
-                    DbManager.getInstance().saveUserBindDevice(bean.bluetoothDevice.name, bean.bluetoothDevice.address,BikeUtils.getFormatDate(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"))
-                    MmkvUtils.saveProductNumberCode(bean.productNumber)
-                    MmkvUtils.saveConnDeviceMac(mac)
-                    MmkvUtils.saveConnDeviceName(bean.bluetoothDevice.name)
-                    BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
-                    initData()
-                  //  finish()
-                }
-            }
-        }
-
-
     val stringBuilder = StringBuilder()
     //开始扫描
     private fun startScan() {
+        val typeMap = BaseApplication.supportDeviceTypeMap
+        stringBuilder.delete(0,stringBuilder.length)
         val saveMac = MmkvUtils.getConnDeviceMac()
-       val typeMap = BaseApplication.supportDeviceTypeMap
-        stringBuilder.delete(0,stringBuilder.length);
+        //已经绑定的设备
+        val bindUserList = DbManager.getInstance().allBindDevice
+        bindUserList?.sortByDescending { it ->it.bindTime }
         BaseApplication.getBaseApplication().bleOperate.scanBleDevice(object : SearchResponse {
 
             override fun onSearchStarted() {
@@ -320,13 +439,14 @@ class SecondScanActivity : AppActivity() {
                 stringBuilder.delete(0,stringBuilder.length);
                 if (p0.getScanRecord() == null || p0.getScanRecord().isEmpty())
                     return
-
+                val bleMac = p0.device.address
+               // Timber.e("----搜索="+bleMac+" "+p0?.address)
                 val tempStr = Utils.formatBtArrayToString(p0.getScanRecord())
-               // stringBuilder.append(tempStr)
+                // stringBuilder.append(tempStr)
                 val recordStr = tempStr
                 val bleName = p0.name
-               // Timber.e("--------扫描="+p0.name+" "+recordStr)
-                if (BikeUtils.isEmpty(bleName) || bleName.equals("NULL") || BikeUtils.isEmpty(p0.address))
+                // Timber.e("--------扫描="+p0.name+" "+recordStr)
+                if (BikeUtils.isEmpty(bleName) || bleName.equals("NULL") || BikeUtils.isEmpty(bleMac))
                     return
                 if (repeatList?.contains(p0.address) == true)
                     return
@@ -337,13 +457,58 @@ class SecondScanActivity : AppActivity() {
                 if(bleName.lowercase(Locale.ROOT).contains("huawei")){
                     return
                 }
-                if(!BikeUtils.isEmpty(saveMac) && saveMac.lowercase(Locale.ROOT) ==p0.address.toLowerCase(
-                        Locale.ROOT)){
+                if (repeatList?.size!! > 40) {
                     return
                 }
+                if(abs(p0.rssi) >85)
+                    return
 
+                Timber.e("------bidList="+(bindList != null) +" "+Gson().toJson(bindList))
 
-                if (repeatList?.size!! > 40) {
+                if(bindList?.isNotEmpty()==true){
+                    bindList?.forEach {
+                        Timber.e("--------bindList="+it.bleName+" bindMac="+it.bleMac+ " rssi="+p0.rssi +" scan="+bleMac)
+                        if(it.bleMac == bleMac){
+                            it.rssi = p0.rssi
+                        }
+                    }
+
+                    bindAdapter?.notifyDataSetChanged()
+
+                  val isHas =  bindList?.any {
+                       it.bleMac == bleMac
+                   }
+
+                    Timber.e("------是否包含="+isHas)
+                    if(isHas == true){
+
+                        return
+                    }
+
+                    typeMap.forEach {
+                        val keyStr = it.key
+                        val tempK = Utils.changeStr(keyStr)
+                        val scanRecord = recordStr.lowercase(Locale.ROOT)
+                        val front = scanRecord.contains(keyStr.lowercase(Locale.ROOT))
+                        val back = scanRecord.contains(tempK.lowercase(Locale.ROOT))
+                        Timber.e("----转换="+tempK)
+                        if(front || back){
+                            //判断少于40个设备就不添加了
+                            if (repeatList?.size!! > 40) {
+                                return
+                            }
+                            if(!repeatList!!.contains(p0.address)){
+                                p0.address?.let { repeatList?.add(it) }
+                                list?.add(BleBean(p0.device, p0.rssi,keyStr,scanRecord))
+                                list?.sortBy {
+                                    Math.abs(it.rssi)
+                                }
+                            }
+
+                        }
+                    }
+
+                    adapter?.notifyDataSetChanged()
                     return
                 }
 
@@ -367,9 +532,10 @@ class SecondScanActivity : AppActivity() {
                             }
                         }
 
-                        adapter?.notifyDataSetChanged()
                     }
                 }
+                adapter?.notifyDataSetChanged()
+
             }
 
             override fun onSearchStopped() {
@@ -380,29 +546,33 @@ class SecondScanActivity : AppActivity() {
 
             }
 
-        }, 15 * 1000, 1)
+        }, 20000 * 1000, 1)
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        BaseApplication.getBaseApplication().isActivityScan = false
         BaseApplication.getInstance().bleManager.stopScan()
+        unregisterReceiver(broadcastReceiver)
     }
 
 
 
     //提示请连接的dialog
-    private fun showConnDialogView(bean: BleBean,service : ConnStatusService,isBind : Boolean){
+    private fun showConnDialogView(bean: BleBean,service : ConnStatusService,isBind : Boolean,index : Int){
         val dialog = DeleteDeviceDialog(this, com.bonlala.base.R.style.BaseDialogTheme)
         dialog.show()
-        dialog.setTitleTxt("是断开当前连接，并连接此设备?")
+        dialog.setTitleTxt("是否断开当前连接，并连接此设备?")
         dialog.setOnCommClickListener(object : OnCommItemClickListener{
             override fun onItemClick(position: Int) {
                 dialog.dismiss()
                 if(position == 0x01){   //确定
                     if(isBind){
-                        bindList?.get(position)?.connStatus = ConnStatus.CONNECTING
-                        bindAdapter?.notifyItemChanged(position)
+                        bindList?.get(index)?.connStatus = ConnStatus.CONNECTING
+                        bindAdapter?.notifyItemChanged(index)
                     }else{
+                        list?.get(index)?.connStatus = ConnStatus.CONNECTING
+                        adapter?.notifyItemChanged(index)
                         showDialog("连接中..")
                     }
 
@@ -410,21 +580,17 @@ class SecondScanActivity : AppActivity() {
                     handlers.postDelayed(Runnable {
 
                         service.connDeviceBack(
-                            bean.bluetoothDevice.name, bean.bluetoothDevice.address
+                            bean.bleName, bean.bleMac
                         ) { mac, status ->
                             hideDialog()
 
                             DbManager.getInstance().saveUserBindDevice(bean.bleName,bean.bleMac,BikeUtils.getFormatDate(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"))
-                            if(isBind){
-                                bindList?.get(position)?.connStatus = ConnStatus.CONNECTED
-                                bindAdapter?.notifyItemChanged(position)
-                            }
                             MmkvUtils.saveProductNumberCode(bean.productNumber)
                             MmkvUtils.saveConnDeviceMac(mac)
-                            MmkvUtils.saveConnDeviceName(bean.bluetoothDevice.name)
+                            MmkvUtils.saveConnDeviceName(bean.bleName)
                             BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
 
-                            initData()
+                            dealScanDevice()
                         }
                     },2000)
 
@@ -441,4 +607,38 @@ class SecondScanActivity : AppActivity() {
         windowLayout?.gravity = Gravity.BOTTOM
         window?.attributes = windowLayout
     }
+
+
+
+    private val broadcastReceiver : BroadcastReceiver = object : BroadcastReceiver(){
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            val action = p1?.action
+            Timber.e("---------acdtion="+action)
+            if(action == BleConstant.BLE_START_SCAN_ACTION){ //开始连接了
+
+
+            }
+            if(action == BleConstant.BLE_CONNECTED_ACTION){
+                ToastUtils.show(resources.getString(R.string.string_conn_success))
+                BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
+                val saveMac = MmkvUtils.getConnDeviceMac()
+                if(!BikeUtils.isEmpty(saveMac)){
+                    bindList?.forEach {
+                        if(it.bleMac ==saveMac){
+                            it.connStatus = ConnStatus.CONNECTED
+                        }
+                    }
+                    bindAdapter?.notifyDataSetChanged()
+                }
+
+
+            }
+            if(action == BleConstant.BLE_DIS_CONNECT_ACTION){
+                ToastUtils.show(resources.getString(R.string.string_conn_disconn))
+
+            }
+        }
+
+    }
+
 }

@@ -213,7 +213,7 @@ class MainActivity : AppActivity() {
 
             if(service != null){
                 BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTING
-                service.autoConnDevice(mac, false)
+                service.autoConnDevice(mac, false,false)
             }
 
         },3000)

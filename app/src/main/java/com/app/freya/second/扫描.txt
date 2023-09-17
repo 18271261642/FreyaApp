@@ -1,0 +1,96 @@
+
+        //已经绑定的设备
+        val bindUserList = DbManager.getInstance().allBindDevice
+        bindUserList?.sortByDescending { it ->it.bindTime }
+        BaseApplication.getBaseApplication().bleOperate.scanBleDevice(object : SearchResponse {
+
+            override fun onSearchStarted() {
+
+            }
+
+            override fun onDeviceFounded(p0: SearchResult) {
+                stringBuilder.delete(0,stringBuilder.length);
+                if (p0.getScanRecord() == null || p0.getScanRecord().isEmpty())
+                    return
+                val bleMac = p0.device.address
+                val tempStr = Utils.formatBtArrayToString(p0.getScanRecord())
+               // stringBuilder.append(tempStr)
+                val recordStr = tempStr
+                val bleName = p0.name
+               // Timber.e("--------扫描="+p0.name+" "+recordStr)
+                if (BikeUtils.isEmpty(bleName) || bleName.equals("NULL") || BikeUtils.isEmpty(p0.address))
+                    return
+                if (repeatList?.contains(p0.address) == true)
+                    return
+                if(BikeUtils.isEmpty(recordStr)){
+                    return
+                }
+
+                if(bleName.lowercase(Locale.ROOT).contains("huawei")){
+                    return
+                }
+                if(!BikeUtils.isEmpty(saveMac) && saveMac.lowercase(Locale.ROOT) ==p0.address.toLowerCase(
+                        Locale.ROOT)){
+                    return
+                }
+
+
+                if (repeatList?.size!! > 40) {
+                    return
+                }
+                if(abs(p0.rssi) >85)
+                    return
+                if(bindUserList!=null){
+                    bindUserList.forEach {
+                        if(it.deviceMac == bleMac){
+                            it.rssi = p0.rssi
+                        }
+                    }
+                    bindAdapter?.notifyDataSetChanged()
+                }
+
+
+                if(!repeatList!!.contains(p0.address) &&){
+                    p0.address?.let { repeatList?.add(it) }
+                    list?.add(BleBean(p0.device, p0.rssi,"",recordStr))
+                    list?.sortBy {
+                        Math.abs(it.rssi)
+                    }
+                }
+
+                adapter?.notifyDataSetChanged()
+
+               /* typeMap.forEach {
+                    val keyStr = it.key
+                    val tempK = Utils.changeStr(keyStr)
+                    val scanRecord = recordStr.lowercase(Locale.ROOT)
+                    val front = scanRecord.contains(keyStr.lowercase(Locale.ROOT))
+                    val back = scanRecord.contains(tempK.lowercase(Locale.ROOT))
+                    Timber.e("----转换="+tempK)
+                    if(front || back){
+                        //判断少于40个设备就不添加了
+                        if (repeatList?.size!! > 40) {
+                            return
+                        }
+                        if(!repeatList!!.contains(p0.address)){
+                            p0.address?.let { repeatList?.add(it) }
+                            list?.add(BleBean(p0.device, p0.rssi,keyStr,scanRecord))
+                            list?.sortBy {
+                                Math.abs(it.rssi)
+                            }
+                        }
+
+                        adapter?.notifyDataSetChanged()
+                    }
+                }*/
+            }
+
+            override fun onSearchStopped() {
+
+            }
+
+            override fun onSearchCanceled() {
+
+            }
+
+        }, 15 * 1000, 1)

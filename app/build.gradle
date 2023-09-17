@@ -11,8 +11,8 @@ android {
         applicationId "com.app.freya"
         minSdk 21
         targetSdk 32
-        versionCode 14
-        versionName "V1.0.4.4"
+        versionCode 15
+        versionName "V1.0.4.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

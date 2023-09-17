@@ -215,6 +215,8 @@ public class BleManager {
     }
 
 
+
+
     public void clearLog(){
         stringBuffer.delete(0,stringBuffer.length());
     }

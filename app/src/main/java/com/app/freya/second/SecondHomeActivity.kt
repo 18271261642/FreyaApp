@@ -323,7 +323,7 @@ class SecondHomeActivity : AppActivity() {
             if (service != null) {
                 BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTING
                 onConnStatusListener?.onConnState(ConnStatus.CONNECTING)
-                service.autoConnDevice(mac, false)
+                service.autoConnDevice(mac, false,true)
             }
 
         }, 3000)
@@ -349,7 +349,10 @@ class SecondHomeActivity : AppActivity() {
             if(action == BleConstant.BLE_CONNECTED_ACTION){
                 ToastUtils.show(resources.getString(R.string.string_conn_success))
                 BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
-                BaseApplication.getBaseApplication().bleOperate.stopScanDevice()
+                if(!BaseApplication.getBaseApplication().isActivityScan){
+                    BaseApplication.getBaseApplication().bleOperate.stopScanDevice()
+                }
+
                 onConnStatusListener?.onConnState(ConnStatus.CONNECTED)
               //  showVersion()
 

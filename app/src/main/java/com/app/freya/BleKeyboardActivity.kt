@@ -262,7 +262,7 @@ class BleKeyboardActivity : AppActivity(){
                 return
             isConnecting = true
             keyBoardStatusTv?.text = resources.getString(R.string.string_connecting)
-            BaseApplication.getBaseApplication().connStatusService.autoConnDevice(mac,false)
+            BaseApplication.getBaseApplication().connStatusService.autoConnDevice(mac,false,true)
             keyBoardStatusTv?.text = resources.getString(R.string.string_connecting)
         }else{
 

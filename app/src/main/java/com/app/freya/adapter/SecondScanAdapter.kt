@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
         val itemProductNameTv = itemView.findViewById<TextView>(R.id.itemProductNameTv)
         val rssiView = itemView.findViewById<RssiStateView>(R.id.itemRssiTv)
         val itemConningImageView = itemView.findViewById<ImageView>(R.id.itemConningImageView)
+        val itemBindStateImgView = itemView.findViewById<ImageView>(R.id.itemBindStateImgView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScanDeviceViewHolder {
@@ -62,37 +64,37 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
             val saveMac = MmkvUtils.getConnDeviceMac()
             holder.itemScanName.text = b.bleName
             holder.itemSecondMacTv.text = b.bleMac
-            holder.rssiView.setRssiValue(0)
+            holder.rssiView.setRssiValue(b.rssi)
+            holder.itemBindStateImgView.visibility = View.VISIBLE
             if(!BikeUtils.isEmpty(saveMac) && saveMac == b.bleMac){
                 holder.itemScanName.setTextColor(context.resources.getColor(com.bonlala.base.R.color.red))
             }else{
                 holder.itemScanName.setTextColor(context.resources.getColor(com.bonlala.base.R.color.white))
             }
-//            holder.itemRecordTv.text = list[position].recordStr
-//            holder.itemProductNameTv.text = list[position].productNumber.toString()
-
-            if(b.connStatus == ConnStatus.CONNECTING){
-                holder.itemConningImageView.visibility = View.VISIBLE
-                holder.itemSecondMacTv.visibility = View.GONE
-                routeImg(holder.itemConningImageView)
-            }else{
-                holder.itemConningImageView.visibility = View.GONE
-                holder.itemSecondMacTv.visibility = View.VISIBLE
-                holder.itemConningImageView.clearAnimation()
-            }
-
         }else{
             holder.itemScanName.text = list[position].bluetoothDevice.name
             holder.itemSecondMacTv.text = list[position].bluetoothDevice.address
-
+            holder.itemBindStateImgView.visibility = View.GONE
             holder.itemRecordTv.text = list[position].recordStr
             holder.itemProductNameTv.text = list[position].productNumber.toString()
             holder.rssiView.setRssiValue(Math.abs(b.rssi))
+
+            routeImg(holder.itemConningImageView)
+        }
+
+        if(b.connStatus == ConnStatus.CONNECTING){
+            holder.itemConningImageView.visibility = View.VISIBLE
+            routeImg(holder.itemConningImageView)
+
         }
 
 
+        else{
+            holder.itemConningImageView.visibility = View.GONE
+            holder.itemConningImageView.clearAnimation()
+        }
 
-        holder.rssiView.setOnClickListener {
+        holder.itemBindStateImgView.setOnClickListener {
             val position = holder.layoutPosition
             onCommMenuClickListener?.onChildItemClick(position)
         }
@@ -112,10 +114,7 @@ class SecondScanAdapter(private val context: Context,private val list : MutableL
 
     //旋转
     private fun routeImg(imageView: ImageView){
-        val animation = ObjectAnimator.ofFloat(0F,360F)
-        animation.duration = 1000
-        animation.repeatCount = -1
-        animation.interpolator = LinearInterpolator()
-        animation.start()
+        val animation = AnimationUtils.loadAnimation(context,R.anim.route_ani)
+        imageView.startAnimation(animation)
     }
 }

@@ -183,7 +183,9 @@ class AboutDeviceActivity : AppActivity() {
             if(action == BleConstant.BLE_CONNECTED_ACTION){
                 ToastUtils.show(resources.getString(R.string.string_conn_success))
                 BaseApplication.getBaseApplication().connStatus = ConnStatus.CONNECTED
-                BaseApplication.getBaseApplication().bleOperate.stopScanDevice()
+                if(!BaseApplication.getBaseApplication().isActivityScan){
+                    BaseApplication.getBaseApplication().bleOperate.stopScanDevice()
+                }
                 showVersion()
 
                 setDialogTxtShow(resources.getString(R.string.string_upgrade_success))

@@ -3,6 +3,7 @@ package com.app.freya.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.app.freya.R
@@ -34,10 +35,10 @@ class RssiStateView : LinearLayout {
     //设置信号值
     fun setRssiValue(value : Int){
         if(value == 0){
-            rssiStateImageView?.setImageResource(R.mipmap.ic_bind_img)
+            rssiStateImageView?.visibility = View.GONE
             return
         }
-
+        rssiStateImageView?.visibility = View.VISIBLE
         if(value<=65){
             rssiStateImageView?.setImageResource(R.mipmap.ic_rssi_full)
             return

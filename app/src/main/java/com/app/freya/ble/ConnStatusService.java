@@ -24,6 +24,7 @@ import com.blala.blalable.BleManager;
 import com.blala.blalable.BleOperateManager;
 import com.blala.blalable.Utils;
 import com.blala.blalable.listener.BleConnStatusListener;
+import com.blala.blalable.listener.BleScanListener;
 import com.blala.blalable.listener.ConnStatusListener;
 import com.blala.blalable.listener.OnCommBackDataListener;
 import com.blala.blalable.listener.WriteBackDataListener;
@@ -53,6 +54,15 @@ public class ConnStatusService extends Service {
 
     public IBinder iBinder = new ConnBinder();
 
+
+    private BleScanListener bleScanListener;
+
+
+
+
+    public void setBleScanListener(BleScanListener bleScanListener) {
+        this.bleScanListener = bleScanListener;
+    }
 
     private final Handler handler = new Handler(Looper.getMainLooper()){
         @Override
@@ -119,12 +129,20 @@ public class ConnStatusService extends Service {
     //是否扫描到了
     private boolean isScanDevice = false;
 
-    /**重新连接设备，扫描连接**/
-    public void autoConnDevice(String mac,boolean isScanClass){
+    /**
+     * 重来设备
+     * @param mac 重来的目标mac
+     * @param isScanClass 是否扫描传统蓝牙
+     * @param isNeedReconnect 是否需要重来，true为重连接,false为扫描
+     */
+    public void autoConnDevice(String mac,boolean isScanClass,boolean isNeedReconnect){
         BleOperateManager.getInstance().scanBleDevice(new SearchResponse() {
             @Override
             public void onSearchStarted() {
                 Timber.e("----onSearchStarted--");
+                if(bleScanListener != null){
+                    bleScanListener.onSearchStarted();
+                }
                 isScanDevice = false;
 
                 sendActionBroad(BleConstant.BLE_START_SCAN_ACTION,"");
@@ -133,10 +151,13 @@ public class ConnStatusService extends Service {
             @Override
             public void onDeviceFounded(SearchResult searchResult) {
                 String bleName = searchResult.getName();
+                if(bleScanListener != null){
+                    bleScanListener.onDeviceFounded(searchResult);
+                }
                 if(TextUtils.isEmpty(bleName) || bleName.equals("NULL"))
                     return;
-                if(searchResult.getAddress().equals(mac)){
-                    BleOperateManager.getInstance().stopScanDevice();
+                if(isNeedReconnect && !BikeUtils.isEmpty(mac) && searchResult.getAddress().equals(mac)){
+                   // BleOperateManager.getInstance().stopScanDevice();
                     Timber.e("-------扫描到了，开始连接="+mac+" "+(searchResult.getScanRecord() ==null));
                     if(searchResult.getScanRecord() != null){
                         Timber.e("-------ssss="+Utils.formatBtArrayToString(searchResult.getScanRecord()));
@@ -149,6 +170,9 @@ public class ConnStatusService extends Service {
 
             @Override
             public void onSearchStopped() {
+                if(bleScanListener != null){
+                    bleScanListener.onSearchStopped();
+                }
 //                Timber.e("----onSearchStopped--");
                 if(!isScanDevice){
                     handler.postDelayed(new Runnable() {
@@ -166,6 +190,9 @@ public class ConnStatusService extends Service {
 
             @Override
             public void onSearchCanceled() {
+                if(bleScanListener != null){
+                    bleScanListener.onSearchCanceled();
+                }
 //                Timber.e("----onSearchCanceled--");
             }
         },isScanClass,2000 * 1000,1);
@@ -376,7 +403,7 @@ public class ConnStatusService extends Service {
                 if(BikeUtils.isEmpty(saveMac)){
                     return;
                 }
-                autoConnDevice(saveMac,true);
+                autoConnDevice(saveMac,true,true);
             }
 
 
